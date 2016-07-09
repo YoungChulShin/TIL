@@ -33,3 +33,8 @@
     - $python manage.py runserver
 - 접속
     - 웹브라우져에서 http://127.0.0.1:8000 
+
+
+##게시판 관리
+- 접속 주소: $127.0.0.1:8000/admin
+- 주소: [Link](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/)

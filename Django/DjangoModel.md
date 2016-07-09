@@ -5,4 +5,4 @@
 - https://docs.djangoproject.com/en/1.8/ref/models/fields/#field-types
 
 ##튜토리얼 문서
-- http://tutorial.djangogirls.org/ko/django_models/
+- <http://tutorial.djangogirls.org/ko/django_models/>
