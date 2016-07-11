@@ -44,4 +44,5 @@
 #표
 
 #이미지
-- !(https://git-for-windows.github.io/img/gwindows_logo.png)
+- !["Name"](Image URL)
+- ![Test](https://git-for-windows.github.io/img/gwindows_logo.png)
