@@ -11,3 +11,5 @@
 
 - 사용 예시
     >static void LogMessage(string text, **[CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0**)
+
+- _로그정보를 표시할 때 사용하면 좋을 것 같다_
