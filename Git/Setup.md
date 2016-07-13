@@ -19,3 +19,13 @@
 ##Git Remote repository check & change
 1. $git remote -v
 2. $git remote set-url origin "repository url"
+
+##Git Push Error
+1. Permission denied error
+    - 에러 메시지: remote: Permission to ShinYN/DayByDay.git denied to go1323. <br>fatal: unable to access 'https://github.com/ShinYN/DayByDay.git/': The requested URL returned error: 403
+    - 에러 문제: remote url이 https로 설정되어 있어서 발생
+    - 해결 방법: remote url을 ssh로 변경
+2. Permission denied error 403
+    - 에러 문제: ssh 키가 없어서 발생
+    - 해결 방법: ssh 키를 생성하여, github에 등록
+    - 해결 방법 Link: [Link](http://uiandwe.tistory.com/992)
