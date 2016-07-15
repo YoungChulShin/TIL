@@ -22,4 +22,18 @@
     - 식: public delegate TResult Funct<TResult>
     - 예: Func<double> pi = () => 3.141592;
 
-    
+##Collection과 람다 식
+- Collection은 람다 식을 만나서 더 기능을 편리하게 사용할 수 있다. 
+
+1. List<T>의  ForEach
+
+2. Array의 ForEach
+
+3. List<T>의 FindAll
+
+4. List<T>의 Count
+
+5. List<T>의 Where
+
+6. List<T>의 Select
+
