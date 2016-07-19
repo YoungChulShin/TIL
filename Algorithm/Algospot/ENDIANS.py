@@ -20,8 +20,22 @@
 #4, 2018915346, 1, 100000, 4294967295
 #305419896, 16777216, 2693136640, 4294967295
 
-a = [2]
-a[0] = "3";
-a[1] = "3";
-print(a)
+import struct
 
+loopCount = raw_input("")
+while int(loopCount) > 10000 or int(loopCount) <= 0:
+    loopCount = raw_input("")
+
+for i in range(0, int(loopCount), 1):
+    input = raw_input("");
+    input_array = [0]*4;
+    input_array[3] = int(input) >> 24 & 0xff;
+    input_array[2] = int(input) >> 16 & 0xff;
+    input_array[1] = int(input) >> 8 & 0xff;
+    input_array[0] = int(input) & 0xff;
+    
+    output = ''
+    for item in input_array:
+        output += '{:02x}'.format(item)
+
+    print int("0x" + output, 0)
