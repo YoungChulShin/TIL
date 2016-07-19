@@ -13,3 +13,5 @@ UWP를 개발하다보면 Control(ex: TextBlock, ListView)에 Data를 업데이�
 >        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));<br>
 >    }<br>
 >}<br>
+
+- MSDN: [Link](https://msdn.microsoft.com/ko-kr/library/system.componentmodel.inotifypropertychanged(v=vs.110).aspx)
