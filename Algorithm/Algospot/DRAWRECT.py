@@ -21,3 +21,32 @@
 #예제 출력
 #7 7
 #30 10
+
+loopCount = int(raw_input(""))
+
+rectArray = [[0 for col in range(2)] for row in range(4)]
+
+for loop in range(loopCount):
+    for col in range(3):
+        
+
+
+for i in range(0, loopCount, 1):
+    for j in range(0, 3, 1):
+
+
+
+
+for i in range(0, int(loopCount), 1):
+    input = raw_input("");
+    input_array = [0]*4;
+    input_array[3] = int(input) >> 24 & 0xff;
+    input_array[2] = int(input) >> 16 & 0xff;
+    input_array[1] = int(input) >> 8 & 0xff;
+    input_array[0] = int(input) & 0xff;
+    
+    output = ''
+    for item in input_array:
+        output += '{:02x}'.format(item)
+
+    print int("0x" + output, 0)
