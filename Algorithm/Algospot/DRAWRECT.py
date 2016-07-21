@@ -25,28 +25,24 @@
 loopCount = int(raw_input(""))
 
 rectArray = [[0 for col in range(2)] for row in range(4)]
+outputArray = [[0 for col in range(2)] for row in range(loopCount)]
 
 for loop in range(loopCount):
-    for col in range(3):
-        
-
-
-for i in range(0, loopCount, 1):
-    for j in range(0, 3, 1):
-
-
-
-
-for i in range(0, int(loopCount), 1):
-    input = raw_input("");
-    input_array = [0]*4;
-    input_array[3] = int(input) >> 24 & 0xff;
-    input_array[2] = int(input) >> 16 & 0xff;
-    input_array[1] = int(input) >> 8 & 0xff;
-    input_array[0] = int(input) & 0xff;
+    for row in range(0, 3, 1):
+        inputTextArray = raw_input("").split(" ")
+        rectArray[row, 0] = int(inputTextArray[0])
+        rectArray[row, 1] = int(inputTextArray[1])
     
-    output = ''
-    for item in input_array:
-        output += '{:02x}'.format(item)
+    for col in range(0, 2, 1):
+        if rectArray[1, col] == rectArray[0, col]:
+            rectArray[3, col] = rectArray[2, col]
+        else if rectArray[1, col] == rectArray[2, col]:
+            rectArray[3, col] = rectArray[0, col]
+        else:
+            rectArray[3, col] = rectArray[1, col]
+    
+    outputArray[loop, 0] = rectArray[3, 0]
+    outputArray[loop, 1] = rectArray[3, 1]
 
-    print int("0x" + output, 0)
+for loop in range(loopCount):
+    print (outputArray[loop])
