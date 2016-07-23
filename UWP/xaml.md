@@ -16,9 +16,11 @@
 ##XAML 컨트롤
 ###TextBlock
 - 텍스트 표시를 할 때 사용
+
 ###HyperLinkButton
 - 하이퍼 링크 표시
 - NagivateUri 속성을 이용해서 웹페이지로도 이동할 수 있다. 
+
 ###TextBox
 - Winform의 텍스트 박스
 
