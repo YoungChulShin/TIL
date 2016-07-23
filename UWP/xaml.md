@@ -11,6 +11,10 @@
         - 'FrameName'.GoBack()
         - CanGoBack 속성을 이용해서 이동 가능한 지 확인 후 이동하면 된다.
 
+##Stack Panel
+
+##Relative Panel
+-화면의 사이즈가 변경되어도 컨트롤의 위치를 정렬하기 위한 목적으로 사용되는 컨트롤 
 
 
 ##XAML 컨트롤
