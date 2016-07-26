@@ -21,6 +21,17 @@ namespace LinqTest.TestModels
         public void DataSelectTest()
         {
             Console.WriteLine("LINQ를 이용한 SelectCode");
+            // Test0: 전통적인 테스트
+            for (int i = 0; i < mPeople.Count(); i++)
+            {
+                Console.WriteLine(mPeople[i].ToString());
+            }
+
+            foreach (var person in mPeople)
+            {
+                Console.WriteLine(person.ToString());
+            }
+
             // Test1: LINQ를 이용한 SelectCode
             var result = from person in mPeople
                          select person;
