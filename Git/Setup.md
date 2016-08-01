@@ -24,6 +24,9 @@
 1. $git remote -v
 2. $git remote set-url origin "repository url"
 
+##Git에서 파일 롤백하는 방법
+1. $git checkout -- "파일명"
+
 ##Git Push Error
 1. Permission denied error
     - 에러 메시지: remote: Permission to ShinYN/DayByDay.git denied to go1323. <br>fatal: unable to access 'https://github.com/ShinYN/DayByDay.git/': The requested URL returned error: 403
