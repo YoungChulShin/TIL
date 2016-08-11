@@ -34,3 +34,8 @@
 ###TextBox
 - Winform의 텍스트 박스
 
+##Flyout
+- 버튼 같은 컨트롤을 클릭했을 때, 위에 출력되는 설정 메뉴?
+- 설정 버튼에 사용하면 될 듯하다. 
+- 참고 <Link>(http://www.top5solutions.com/xaml-flyouts-in-uwp-windows-10-apps/)
+
