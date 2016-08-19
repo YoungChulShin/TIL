@@ -1,15 +1,20 @@
-loopCount = 1
 
-input = 'abbaaccb'
+def SplitStringToArraryByLength(inputString, substringLength):
+    return [inputString[i:i+substringLength] for i in range(0, len(inputString), substringLength)]
 
-aa = len(input) / 2
-aaa = input[0:2]
+loopCount = int(raw_input(""))
 
-print aa
-print aaa
-print ord('A')
+for loop in range(loopCount):
+    inputText = raw_input("")
+    inputTextArray = SplitStringToArraryByLength(inputText, 2)
 
-if 'A' > 'B':
-    print 'A'
-else:
-    print 'B'
+    ouputSortedArray = [inputTextArray[0]]
+    for i in range(len(inputTextArray)-1):
+        for j in range(len(ouputSortedArray)):
+            if ouputSortedArray[j] > inputTextArray[i+1]:
+                ouputSortedArray.insert(j, inputTextArray[i+1])
+                break
+            if j == len(ouputSortedArray) - 1:            
+                ouputSortedArray.append(inputTextArray[i+1])
+    print(''.join(ouputSortedArray))
+     
