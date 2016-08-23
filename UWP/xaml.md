@@ -16,6 +16,12 @@
 ##Relative Panel
 -화면의 사이즈가 변경되어도 컨트롤의 위치를 정렬하기 위한 목적으로 사용되는 컨트롤 
 
+##Split View
+- 화면에서 버튼을 눌렸을 때, 
+- 햄버거 메뉴를 만들 때 주로 사용
+- 속성
+    - PanelPlace="Left or Right" : SplitView에서 Content Panel이 어느 방향으로 나올지를 결정하는 함수
+
 
 ##XAML 컨트롤
 ###TextBlock
@@ -27,4 +33,9 @@
 
 ###TextBox
 - Winform의 텍스트 박스
+
+##Flyout
+- 버튼 같은 컨트롤을 클릭했을 때, 위에 출력되는 설정 메뉴?
+- 설정 버튼에 사용하면 될 듯하다. 
+- 참고 <Link>(http://www.top5solutions.com/xaml-flyouts-in-uwp-windows-10-apps/)
 
