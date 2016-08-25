@@ -5,9 +5,16 @@ loopCount = int(raw_input(""))
 
 for loop in range(loopCount):
     inputText = raw_input("")
-    outputArray = [len(inputText) * '0']
-    #oddStartIndex = len(inputText) + 1
+    inputLengh = len(inputText)
+
+
+    outputArray = [inputLengh * '0']
     oddStartIndex = 0
+    if inputLengh % 2 == 0:
+        oddStartIndex = inputLengh / 2
+    else:
+        oddStartIndex = (inputLengh + 1) / 2
+
     for i in range(len(inputText)):
         if i * 2 < len(inputText):
             outputArray[i] = inputText[i * 2]
