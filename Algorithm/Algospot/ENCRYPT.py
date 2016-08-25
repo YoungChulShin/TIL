@@ -22,3 +22,7 @@ for loop in range(loopCount):
             outputArray[i] = inputText[1 + oddStartIndex * 2]
         oddStartIndex = oddStartIndex + 1
     print outputArray
+
+
+    ## 길이가 홀수: 짝수의 갯수: 전체 길이 + 1 /2
+    ## 길이가 짝수: 짝수의 갯수: 전체 길이 /2
