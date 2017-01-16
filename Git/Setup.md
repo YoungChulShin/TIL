@@ -36,3 +36,6 @@
     - 에러 문제: ssh 키가 없어서 발생
     - 해결 방법: ssh 키를 생성하여, github에 등록
     - 해결 방법 Link: [Link](http://uiandwe.tistory.com/992)
+
+## Git Commit 취소
+1. git reset
