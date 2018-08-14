@@ -10,7 +10,7 @@ Native Control을 상속하는 Class를 구현해서 사용할 수도 있다.
 - Xamarin 컨트롤과 Native 컨트롤 맵핑: [Link](https://docs.microsoft.com/ko-kr/xamarin/xamarin-forms/app-fundamentals/custom-renderer/renderers)
 - Xamarin University Video: [Link](https://developer.xamarin.com/videos/cross-platform/xamarinforms-custom-renderers/)
 
-###Entry Customizing
+### Entry Customizing
 - Xamarin.Forms의 컨트롤은 Renderer를 통해서 Native Control로 변경된다
 - Entry [Android]: EntryRenderer에 의해서 EditText로 변경
 - Entry [iOS]: EntryRenderer에 의해서 UITextField로 변경
