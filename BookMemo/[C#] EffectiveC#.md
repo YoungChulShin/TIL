@@ -50,3 +50,4 @@
 - 보간 문자열의 리턴 값은 string 또는 FormattableString의 객채로 만들어 진다. 
 - var를 사용해서 보간 문자열을 사용한다면, 컴파일러는 특정 조건에 기준하여 이를 판단한다. 
 - FormatableString을 사용하려면, FormatableString 타입만 파라미터로하는 함수를 사용해서 처리해야 한다. (43page 예제 참조)
+
