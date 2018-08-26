@@ -39,3 +39,6 @@
 
 ## Git Commit 취소
 1. git reset
+
+## Git Bash에서 파일 추가
+1. $touch '파일 명"
