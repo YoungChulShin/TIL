@@ -23,3 +23,26 @@
 - 비트 단위로 제어할 때 사용
 - '>>' : 오른쪽으로 n 비트 이동
 - '<<' : 왼쪽으로 n 비트 이동 
+### 비트 연산자
+- & : And
+- | : Or
+- ^ : XOR
+- ~ : 보수 연산자
+
+## 5.1.3 예약어
+### 가변 매개변수: params
+- 함수의 파라미터를 전달 받을 때, 정확히 수를 모르는 경우 params를 파라미터 앞에 붙여서 n개의 값을 받을 수 있다
+- 타입이 서로 다르다면, object 타입을 받아서 처리할 수 도 있다
+
+### Win32 API 호출: extern
+- ManagedCode에서 C, C++로 만들어진 함수(UnManagedCode)를 호출할 때 사용
+  - P/Invoke: platform invocation
+- extern을 위해서는 3가지의 내용이 필요
+  1. DLL 이름 : User32.dll
+  2. 함수 이름 : MessageBeep
+  3. 함수 형식 : BOOL WINAPI MessageBeep (_In_ UINT uType)
+- extern은 메서드에 코드가 없어도 실행될 수 있게 해주는 기능
+- Win32 API와 C# 코드를 연결하는 것은 [DLLImport] 특성을 이용해서 사용 가능하다. 
+- www.pinvoke.net 사이트에서 win32 API를 확인 가능하다
+
+
