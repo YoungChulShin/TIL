@@ -45,4 +45,33 @@
 - Win32 API와 C# 코드를 연결하는 것은 [DLLImport] 특성을 이용해서 사용 가능하다. 
 - www.pinvoke.net 사이트에서 win32 API를 확인 가능하다
 
+### unsafe
+- C#에서 C/C++ 언어의 포인터를 사용할 때 unsafe 예약어를 이용해서 사용
+- 포인터 연산 (*, &)
+- unsafe 추가 
+  1. 함수 정의 
+  2. 함수를 호출해서 사용할 때, 관련 범위를 unsafe로 묶어서 사용한다
+- 컴파일
+  1. 커맨드라인: csc /unsafe programs.cs
+  2. 비주얼스튜디오: 속성에서 '안전하지 않은 코드 허용' 사용
 
+
+# 5.2 프로젝트 구성
+## 5.2.2 라이브러리
+### csc.exe
+- 사용법: csc 'filename'.cs
+- 옵션을 넣지 않으면 기본적으로 /target:exe 로 설정
+- 라이브러리 파일을 만드려면 옵션에 csc /target:library 'filename'.cs 로 생성한다
+
+### app.config 파일
+- 닷넷 프로그램을 실행하면 처음 CLR 환경이 초기화 되고, 이후에 개발자가 작성한 코드가 실행된다.
+- CLR 초기화 과정에서 값을 전달해야할 때가 있는데, 프로그램 코드로는 전달할 수가 없기 때문에 app.config 파일을 이용해서 전달한다. 
+- 빌드가 되면 *.exe.config 로 생성된다. 
+- 닷넷 프로그램을 실행하면 CLR을 로드하고 초기화하는 코드가 실행된다.<br>
+초기화 하는 코드에서 *.exe.config 파일이 있으면 해당 파일을 로드해서 비교한다. 
+- SupportedRuntime
+  - 이 항목을 명시적으로 지정하면 반드시 해당 프레임워크 버전이 설치돼 있어야 응용 프로그램이 동작한다. 
+- appSetting
+  - 응용프로그램에 값을 전달하는 목적으로 사용
+  - 정의: configuration -> appSettings -> add key="ddd" value = "ddd" 
+  - 사용: System.Configuration!System.Configuration.ConfigurationManager.AppSettings
