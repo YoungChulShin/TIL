@@ -75,3 +75,27 @@
   - 응용프로그램에 값을 전달하는 목적으로 사용
   - 정의: configuration -> appSettings -> add key="ddd" value = "ddd" 
   - 사용: System.Configuration!System.Configuration.ConfigurationManager.AppSettings
+
+## 5.2.4 디버그 빌드와 릴리즈 빌드
+- 인라인
+  - 호출하는 측(Caller)의 코드에 대상 메서드(Callee)의 코드가 포함되는 것
+  - 매서드의 코드를 인라인 시키는 이유는 속도를 빠르게 하기 위해서
+- 릴리즈 빌드
+  - 최적화를 허용하는 빌드
+  - 오류파악의 관점에서 볼 때 2가지의 주요 문제점이 있다. 
+     1. 소스라인의 정보가 없다
+     2. 최적화를 통한 메서드가 인라인 되었다. 
+
+
+- PDB (Program database) 파일
+  - 디버그 모드(=debug)로 빌드하면 생성된다
+  - 오류가 발생하면 CLR은 program.pdb 파일을 로드해서 문제가 발생한 소스코드의 라인 정보를 함께 추력해준다. 
+  - 일반적으로 배포는 릴리즈 빌드로 하는데, 소스 코드 라인정보를 얻기 위해서 /debug:pdbonly 옵션을 적용한다. 
+
+- Trace, Debug
+  - Trace: 디버그 데이터 출력
+  - Debug: 디버그 모드에서 디버그 데이터 출력
+  - DebugView 프로그램
+
+
+  
