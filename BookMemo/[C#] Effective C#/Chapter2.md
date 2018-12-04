@@ -80,3 +80,8 @@ finalizer도 없고, Dispose 호출 역시 잊어버리면 리소스 누수가 �
    - finalizer 큐에 삽입된 객체는 한 세대가 높아지기 때문에, 메모리에서 제거되는 시점이 느려진다
 - finalizer와 derived class에서 모두 Dispose를 사용하기 위해서는 protected type의 가상함수를 만들어 준다
    - protected virtual void Dispose(bool isDisposing)
+
+- IDisposable 구현 관련 참고 링크
+   - [CodeProject](https://www.codeproject.com/Articles/413887/Understanding-and-Implementing-IDisposable-Interfa)
+   - [Medium](https://medium.com/rkttu/idisposable-%ED%8C%A8%ED%84%B4%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EA%B5%AC%ED%98%84-%EB%B0%A9%EB%B2%95-4fa0fcf0e67a)
+
