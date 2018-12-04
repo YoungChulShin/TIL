@@ -24,3 +24,28 @@
    - dword: double word. x86에서는 4바이트
    - prt [A]: A의 주소값. (&a)
    - 0x07: 7
+
+- CISC
+   - Complex Instruction Set Computer
+   - 예: 인텔의 x86, DEC의 VAX(Virtual Adress Extention)
+   - 명령어의 길이가 주로 가변적이며, 여러 복잡한 형태의 주소 모드를 지원
+   - 범용 레지스터(General Purpose Register, GPR)의 개수가 비교적 작다
+   - x86 32비트는 EAX, EBX와 같은 레지스터로 8개만 제공한다
+
+- RISC
+   - Reduced Instruction Set Computer
+   - 기존에 CISC를 사용해보니 실제로 사용하는 명령어의 종류는 그렇게 많지 않다는 것을 확인.<br>
+   명령어 크기를 고정하고, 그 개수를 대폭줄인 RISC가 탄생
+   - 예: ARM, IBM의 Power PC, MIPS (Microprocessor without Interlocked Pipeline Stage)
+
+- opcode: operation code, 어떤 명령어인가를 기술하는 옵코드
+- RISC와 CISC의 차이
+   - RISC의 경우 CISC에 비해서 명령어가 매우 직관적이고, 분석이 쉽다 (=32비트 고정이기 때문).<br>하지만 이러한 점 때문에 CISC가 간단히 처리할 수 있는 것도 단계적으로 처리해야하는 단점이 있다
+   - 설계의 차이
+      - CISC는 컴퓨터 프로그램의 복잡함을 하드웨어가 도맡아 처리한다. 복잡한 수학 함수를 지원하기도하고 메모리 주소를 바로 피연산자로 받을 수도 있다. 과거 프로그래머들이 x86으로 작업을 많이 했기 때문에 이런 기능은 유용했다
+      - RISC는 하드웨어의 복잡함을 일부 소프트웨어, 컴파일러로 넘겼다. 이제는 기계어로 프로그래밍 하는 경우는 드물기 때문에 굳이 ISA에 많은 명령어를 제공할 필요가 없게 되었다<br>
+      대신 하드웨어의 복잡함을 줄여서 성능향상에 투자할 수 있었다.<br>
+      대표적으로 RISC의 범용 레지스터 개수는 CISC보다 많다. x86은 8개 x86-64는 16개만 지원하지만 대부분 RISC 구조는 32개 이상의 레지스터를 제공한다. 
+
+
+
