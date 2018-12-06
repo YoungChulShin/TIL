@@ -47,5 +47,18 @@
       대신 하드웨어의 복잡함을 줄여서 성능향상에 투자할 수 있었다.<br>
       대표적으로 RISC의 범용 레지스터 개수는 CISC보다 많다. x86은 8개 x86-64는 16개만 지원하지만 대부분 RISC 구조는 32개 이상의 레지스터를 제공한다. 
 
-
+- 간단한 기계어 해석
+   1. RISK - ARM
+      - ldr: Load
+      - mov: move
+      - str: store
+      - mul: mulication
+      - add: add
+      - sp: Stack pointer
+      - ldr r1, [sp, #4]: r1레지스터에 스택포인터로부터 4바이트 떨어진 곳에 있는 값을 저장하라
+   2. CISC - x86
+      - rsp: stack pointer (r은 64비트라서 붙은 값, e는 32비트)
+      - imul: 정수의 곱셈
+      
+   - 동일 코드를 CISC와 RISC로 작성해 보면 CISC가 프로그램의 크기가 작다. 대신 해독이 더 복잡하다
 
