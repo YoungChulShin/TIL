@@ -36,3 +36,9 @@
 
    public bool AreEqual2<T>(T left, T right) where T : IComparable<T> => left.CompareTo(right) == 0;
    ```
+
+   - C#의 default() 연산자는 특정 타입의 기본 값을 가져온다. 
+      - 값 타입: 0
+      - 참조 타입: null
+
+   
