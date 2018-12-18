@@ -1,7 +1,0 @@
-- Intent
-    - intent를 이용해서 어플리케이션 구선 요소간에 데이터를 전달하거나 실행하나는 기능이 무엇인지 알려주는 기능
-- startActivity
-- AppCompatActivity
-- View
-- Activity
-    - 하나의 화면을 Activity라고 부른다
