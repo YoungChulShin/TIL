@@ -96,3 +96,73 @@ OK 또는 NG 버튼을 눌렸을 때 이벤트 처리
         }
     }
    ```
+
+### 달력 다이얼로그
+   ```java
+   // 구현
+    Calendar c = Calendar.getInstance();
+    int year = c.get(Calendar.YEAR);
+    int month = c.get(Calendar.MONTH);
+    int day = c.get(Calendar.DAY_OF_MONTH);
+
+    DatePickerDialog dateDialog = new DatePickerDialog(
+            this,
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    showToast(year + ":" + dayOfMonth);
+                }
+            }, year, month, day);
+
+    dateDialog.show();
+
+    // 이벤트 처리
+    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (dialog == customDialog && which == DialogInterface.BUTTON_POSITIVE) {
+                showToast("custom dialog 확인 click");
+            }
+            else if (dialog == listDialog) {
+                String[] datas = getResources().getStringArray(R.array.dialog_array);
+                showToast(datas[which] + "선택하셨습니다");
+            }
+            else if (dialog == alertDialog && which == DialogInterface.BUTTON_POSITIVE){
+                showToast("alert dialog ok click");
+            }
+        }
+    };
+   ```
+
+### 시간 다이얼로그
+   ```java
+    Calendar c = Calendar.getInstance();
+    int hour = c.get(Calendar.HOUR);
+    int minute = c.get(Calendar.MINUTE);
+
+    TimePickerDialog timePicker = new TimePickerDialog(this,
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    showToast(hourOfDay + ":" + minute);
+                }
+            }, hour, minute, false);
+
+    timePicker.show();
+   ```
+### Custom 다이얼로그
+LayoutInflater 를 사용해서 구현
+- XML을 View Object로 변경해주는 기능
+
+샘플 코드
+   ```java
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+    builder.setView(inflater.inflate(R.layout.dialog_layout, null));
+
+    builder.setPositiveButton("확인", dialogListener);
+    builder.setNegativeButton("취소", null);
+
+    customDialog = builder.create();
+    customDialog.show();
+   ```
