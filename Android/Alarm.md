@@ -40,6 +40,15 @@ Vibrator Class를 통해서 지원
     toast.show();
    ```
 
+### 다이얼로그의 기본 처리
+1. builder 생성
+   - AlertDialog.Builder builder = new AlertDialog.Builder(this);
+2. 기본 값 설정
+   - 아이콘, 타이틀, 메[시지, 버튼 등
+3. AlertDialg 변수에 builder를 맵핑
+   - AldertDialog alertDialog = builder.create();
+4. AlertDialog Show
+
 ### 알람 다이얼로그
 다이얼로그 형식으로 알람창을 알리고 싶을 때 사용<br>
 
@@ -54,4 +63,36 @@ Vibrator Class를 통해서 지원
     alertDialog = builder.create();
 
     alertDialog.show();
+   ```
+
+OK 또는 NG 버튼을 눌렸을 때 이벤트 처리
+- DialogInterface의 OnClickListener를 사용
+- 코드 예시
+   ```java
+   // 이벤트 선언
+    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (dialog == customDialog && which == DialogInterface.BUTTON_POSITIVE) {
+                showToast("custom dialog 확인 click");
+            }
+            else if (dialog == listDialog) {
+                String[] datas = getResources().getStringArray(R.array.dialog_array);
+                showToast(datas[which] + "선택하셨습니다");
+            }
+            else if (dialog == alertDialog && which == DialogInterface.BUTTON_POSITIVE){
+                showToast("alert dialog ok click");
+            }
+        }
+    };
+    @Override
+    public void onClick(View v){
+        if (v == btnAlert) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setIcon(R.drawable.alerticon);
+            builder.setTitle("알림");
+            builder.setMessage("정말 종료 하시겠습니까?");
+            builder.setPositiveButton("OK", dialogListener);  // 이벤트 연결
+        }
+    }
    ```
