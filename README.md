@@ -11,4 +11,4 @@
 ## 작성자 정보
 - 이름: 신영철
 - 이메일: go1323@gmail.com
-- 블로그: <https://youngchulshin.tistory.com/>
+- 블로그: <https://youngchulshin.github.io/>
