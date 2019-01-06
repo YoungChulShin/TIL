@@ -18,3 +18,10 @@
 ### App Theme
 - Style리소스에서 'AppTheme'에서 확인 가능
 - 적용은 AndroidManifest.xml에서 설정 
+
+### 다국어 처리
+- strings.xml 을 추가하는데, locale을 변경해서 등록
+
+### 국가별 이미지 처리
+1. drawable 폴더를 추가. 이때 Locale 설정을 추가
+2. drawable 폴더에 이미지를 복사하면, 폴더를 선택하는 창이 뜨는데 원하는 Locale 정보를 선택해서 복사
