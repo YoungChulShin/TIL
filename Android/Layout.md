@@ -105,3 +105,74 @@ bias: 치우침 설정
 
 ratio: 비율
 - 한쪽 크기를 0dp로 설정한 상태에서 비율을 조절 가능
+
+
+### PreferenceFragment
+앱의 설정과 비슷하게 UI를 직접 구성하지 않고 사용 가능
+
+- CheckboxPreference, SwitchPreference
+- EditTestPreference
+- ListPreference, MultiSelectPreference
+   - 목록을 띄우고 하나 또는 n개를 선택하는 태그
+   - entries에는 배열 리소스를 등록해야 한다
+- RingtonPreference
+- PreferenceCategory
+   - 여러 설정을 묶을 수 있는 서브 타이틀 개념
+   - dependency: 연결된 값을 기준으로 값이 판단
+- PreferenceScreen
+
+적용 방법
+1. XML 파일을 만든다
+   - xml 폴더를 만들고 그 하위에 생성
+   - root는 PreferenceScreen으로 
+2. PreferenceFragment를 상속받는 클래스를 만든다
+   - SharedPreference 활용
+      ```java
+      SharedPreferences pref;
+      pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+      if (pref.getBoolean("keyword", false)) {
+         keywordScreen.setSummary("사용");
+      }
+
+      pref.registerOnSharedPreferenceChangeListener(prefListener);
+
+      SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if (key.equals("sound_list")) {
+                soundPreference.setSummary(pref.getString("sound_list", "카톡"));
+            }
+            if (key.equals("keyword_sound_list")) {
+                keywordSoundPreference.setSummary(pref.getString("keyword_sound_list", "카톡"));
+            }
+            if (key.equals("keyword")) {
+                if (pref.getBoolean("keyword", false)) {
+                    keywordScreen.setSummary("사용222");
+                }
+                else {
+                    keywordScreen.setSummary("사용안함33");
+                }
+            }
+        }
+      ```
+3. addRepreferenceFromResource로 XML을 클래스에 등록한다
+   - 샘플 코드
+      ```java
+      //1
+      public class SettingPreferenceFragment extends PreferenceFragment {
+
+      //2
+      addPreferencesFromResource(R.xml.seetings_preference);
+      ```
+4. Activity를 만들고 클래스를 등록한다
+   - Activity의 Layout은 Fragment로 생성
+      ```xml
+      <?xml version="1.0" encoding="utf-8"?>
+      <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@+id/settings_fragment"
+         android:name="com.example.go1323.chapter6.SettingPreferenceFragment"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         />
+      ```

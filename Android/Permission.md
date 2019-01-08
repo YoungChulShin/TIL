@@ -48,3 +48,48 @@ System Permission: 특정 기능을 시스템에서 보고하고 있어서 'uses
    - PERMISSION_GRANTED: 권한 부여
    - PERMISSION_DENIED: 권한 미 부여
 - requestPermissions로 권한 요청
+
+
+### 권한 샘플 코드
+1. 권한 추가
+   ```xml
+   <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+   package="com.example.go1323.part3_9">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+   ```
+
+2. 권한 체크
+   ```java
+   if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            fileReadPermission = true;
+        }
+
+   if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED) {
+      fileWritePermission = true;
+   }
+   ```
+3. 권한 요청
+   ```java
+    ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 200);
+
+
+   @Override
+    public  void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 200 && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fileReadPermission = true;
+            }
+            if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                fileWritePermission = true;
+            }
+        }
+    }
+   ```
