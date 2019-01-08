@@ -105,3 +105,25 @@ bias: 치우침 설정
 
 ratio: 비율
 - 한쪽 크기를 0dp로 설정한 상태에서 비율을 조절 가능
+
+
+
+### PreferenceFragment
+앱의 설정과 비슷하게 UI를 직접 구성하지 않고 사용 가능
+
+- CheckboxPreference, SwitchPreference
+- EditTestPreference
+- ListPreference, MultiSelectPreference
+   - 목록을 띄우고 하나 또는 n개를 선택하는 태그
+   - entries에는 배열 리소스를 등록해야 한다
+- RingtonPreference
+- PreferenceCategory
+   - 여러 설정을 묶을 수 있는 서브 타이틀 개념
+   - dependency: 연결된 값을 기준으로 값이 판단
+- PreferenceScreen
+
+적용 방법
+1. XML 파일을 만든다
+2. PreferenceFragment를 상속받는 클래스를 만든다
+3. addRepreferenceFromResource로 XML을 클래스에 등록한다
+4. Activity를 만들고 클래스를 등록한다
