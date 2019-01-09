@@ -15,3 +15,8 @@
 - 독립적으로 실행 된다
    - SMS목록과 SMS수신 컴포넌트가 있다고 하면, SMS 목록은 프로그램을 시작했을 때 확인 가능한 항목이다.<br>
    SMS수신은 프로그램을 직접 실행하지 않더라도 SMS를 받으면 실행되는 항목이다
+
+### Context
+- Activity, Service는 Context의 하위 클래스
+- 안드로이드 시스템의 글로벌 정보나 애플리케이션 환경 등에 접근하는 방법을 제공
+- Application Level에서 Context를 통해서 System Level로 접근
