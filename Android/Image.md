@@ -12,3 +12,8 @@ ImageView
    - adjustViewBounds: 비율 유지 여부
       - maxWidth, minWidth와 함께 사용
    - tint: 이미지위에 다른 색을 입힐 때 사용
+- 이미지 설정
+   ```java
+   typeImageView.setImageDrawable(ResourcesCompat.getDrawable(
+                    context.getResources(), R.drawable.ic_type_doc, null));
+   ```
