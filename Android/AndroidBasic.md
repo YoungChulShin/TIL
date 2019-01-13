@@ -34,3 +34,7 @@ minSdkVersion보다 상위 버전의 API를 사용할 경우가 있고 이 경�
       
    }
    ```
+
+### 네임스페이스
+표준이 아닌 별도의 네임스페이스
+- xmlns:app="http://schemas.android.com/apk/res-auto"
