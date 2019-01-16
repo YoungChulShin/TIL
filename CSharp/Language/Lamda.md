@@ -33,6 +33,7 @@
     - 반환값이 없는 Delegate
     - 식: public delegate void Action<T>(T obj)
     - 예: Action<string> writeText = (txt) => Console.WriteLine(txt);
+       - txt는 string 타입
 
 2. Func() 
     - 반환값이 있는 Delegate
