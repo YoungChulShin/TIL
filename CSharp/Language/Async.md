@@ -152,3 +152,153 @@ EventWaitHandle
         Console.WriteLine(result);
     }
    ```
+
+
+## Async, Await (C# 5.0)
+### Await 동작
+File의 ReadAsync 예시
+1. Main Thread에서 작업 진행
+2. ReadAsync를 호출하고 바로 이후 작업을 진행 
+   - Async 함수를 호출하기 전까지 진행이 됨
+   - Async 함수를 호출하고 바로 다음 라인을 진행
+3. File을 읽는 작업을 DISK IO에서 별도의 스레드로 진행
+4. File읽기가 완료되면 ThreadPool에서 ReadAsync가 있는 동일 함수에서 다음 라인에 있는 작업을 진행
+- 코드 예시
+   ```c#
+   public async void FileReadAsync()
+   {
+        using (FileStream fs = new FileStream(FILE_PATH, FileMode.Open))
+        {
+            byte[] buff = new byte[fs.Length];
+
+            Console.WriteLine("Before read : " + Thread.CurrentThread.ManagedThreadId);
+            await fs.ReadAsync(buff, 0, buff.Length);
+            Console.WriteLine("After read : " + Thread.CurrentThread.ManagedThreadId);
+
+            string txt = Encoding.UTF8.GetString(buff);
+            Console.WriteLine(txt);
+        }
+   }
+   ```
+
+
+Web Client 예시
+   ```c#
+   // 정상 동작
+    public void WebClientNormal()
+    {
+        WebClient webClient = new WebClient();
+        string text = webClient.DownloadString("http://www.microsoft.com");
+        Console.WriteLine(text);
+    }
+
+    // 4.0 비동기
+    public void WebClientAsync1()
+    {
+        WebClient webClient = new WebClient();
+        webClient.DownloadStringCompleted += WebClient_DownloadStringCompleted;
+        webClient.DownloadStringAsync(new Uri("http://www.google.com"));
+    }
+    private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+    {
+        Console.WriteLine("After result : " + Thread.CurrentThread.ManagedThreadId);
+        Console.WriteLine(e.Result);
+    }
+
+    // 5.0 비동기
+    public async void WebClientAsync2()
+    {
+        WebClient webClient = new WebClient();
+        string text = await webClient.DownloadStringTaskAsync("http://www.google.com");
+        Console.WriteLine(text);
+    }
+   ```
+
+### Task
+배경
+- 닷넷 4.0부터 추가된 병렬 처리 라이브러리(TPL: Task Parallel Library)
+
+기능
+- ThreadPool의 자유 스레드를 이용해서 Action Delegate로 전달된 코드를 수행한다
+- QueueUserWorkItem과 차이점이라면 더 세밀하게 제어가 가능하다
+   - Result 값에 대해서 처리가 가능하다
+   - wait도 간단히 처리 할 수 있다. (QueueUserWorkItem에서는 EventWaitHandle을 이용해서 set, waitone을 설정해줘야 했다)
+      ```c#
+        Task task1 = new Task(
+            () =>
+            {
+                Console.WriteLine("process task item");
+            }
+        );
+        task1.Start();
+        task1.Wait();
+      ```
+- TaskFactory를 통해서 간단히 생성 가능
+   ```c#
+   Task.Factory.StartNew(   
+        () =>
+        {
+            Console.WriteLine("process task item");
+        }
+    );
+   ```
+
+Task<'TResult>
+- 예시 코드
+    ```c#
+    Task<int> taskResult = Task.Factory.StartNew<int>(() => 1);
+    taskResult.Wait();
+    Console.WriteLine(taskResult.Result);
+    ```
+
+### 일반 함수의 비동기 처리
+기존에는 일반 함수를 비동기로 처리하기 위해서는 Delegate의 BegineInvoke를 이용해서 처리했다
+   - 예시
+   ```c#
+    public delegate string ReadAllTextDelegate(string path);
+    private readonly string FILE_PATH = "d:\\test.txt";
+
+    public void FileReadAsync()
+    {
+        ReadAllTextDelegate func = FileRead;
+        func.BeginInvoke(FILE_PATH, readFileCompleted, func);
+    }
+
+    private string FileRead(string aFilePath)
+    {
+        return File.ReadAllText(aFilePath);
+    }
+
+    private void readFileCompleted(IAsyncResult ar)
+    {
+        ReadAllTextDelegate func = ar.AsyncState as ReadAllTextDelegate;
+        string fileText = func.EndInvoke(ar);
+
+        Console.WriteLine(fileText);
+    }
+   ```
+
+Task를 이용해서 함수를 감싸면 비동기로 처리 가능하다
+- 예시
+   ```c#
+   private readonly string FILE_PATH = "d:\\test.txt";
+   
+   public async void FileReadAsync()
+   {
+       Console.WriteLine("Function Start - " +    Thread.CurrentThread.ManagedThreadId);
+       string fileText = await FileReadAsync(FILE_PATH);
+       Console.WriteLine("Function End - " +    Thread.CurrentThread.ManagedThreadId);
+       Console.WriteLine(fileText);
+   }
+   
+   private Task<string> FileReadAsync(string aFilePath)
+   {
+       return Task.Factory.StartNew(
+           () =>
+           {
+               Console.WriteLine("Async Function Start - " +    Thread.CurrentThread.ManagedThreadId);
+               return File.ReadAllText(aFilePath);
+           }
+       );
+   }
+   ```
