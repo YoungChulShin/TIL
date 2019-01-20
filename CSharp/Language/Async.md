@@ -302,3 +302,52 @@ Task를 이용해서 함수를 감싸면 비동기로 처리 가능하다
        );
    }
    ```
+
+### 병렬 처리
+Thread를 이용한 병렬 처리
+   ```c#
+      Thread thread = new Thread(delegate()
+      {
+          Thread.Sleep(3000);
+      });
+      
+      Thread thread2 = new Thread(() =>
+      {
+          Thread.Sleep(5000);
+      });
+      
+      thread.Start();
+      thread2.Start();
+      
+      thread.Join();
+      thread2.Join();
+   ```
+
+Task를 이용한 병렬 처리 - 1 : WaitAll
+- WaitAll 사용
+- Main 메서드를 실행중인 스레드가 아무 일도 못하고 기다리는 문제가 발생
+   ```c#
+   var task1 = Method3Async();
+   var task2 = Method5Async();
+   Task.WaitAll(task1, task2);
+
+   private static Task<int> Method3Async()
+   {
+       return Task.Factory.StartNew(() =>
+       {
+           Thread.Sleep(3000);
+           return 3;
+       });
+   }
+   ```
+
+Task를 이용한 병렬 처리 - 2 : WhenAll
+   ```c#
+   private static async void DoAsync()
+      
+      var task1 = Method3Async();
+      var task2 = Method5Async();
+         await Task.WhenAll(task1, task2);
+      Console.WriteLine("완료");
+   }
+   ```
