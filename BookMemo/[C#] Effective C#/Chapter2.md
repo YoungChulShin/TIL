@@ -62,6 +62,9 @@
 - 베이스 클래스의 생성자에서 가상 함수를 호출하고 자식 클래스에서 이를 구현하고 있다면 자식 클래스의 생성자에서 올바른 값을 할당하기 이전에, 베이스 클래스 생성자에 의해서 자식 클래스의 Override 된 함수가 호출될 수 있다
 
 ## Item 17 표준 Dispose 패턴을 구현하라
+- 정의
+   - 닷넷 내부에서 비관리 리소스를 정리하는 표준화된 패턴
+   - IDisposable Interface를 통해서 개발자들이 리소스를 안전하게 삭제할 수 있는 기능을 제공한다
 - 리소스 정리 규칙 - Base Class
    - 리소스를 정리하기 위해서 IDisposable 인터페이스를 구현해야 한다
    - 멤버 필드로 비관리 리소스를 포함하는 경우에 한해 방어적으로 동작할 수 있도록 finalizer를 추가해야 한다
@@ -78,8 +81,16 @@ finalizer도 없고, Dispose 호출 역시 잊어버리면 리소스 누수가 �
    - GC가 수행되면 가비지 객체는 메모리에서 제거되지만 finalizer를 가진 객체는 메모리에 남는다
    - GC는 finalizer 큐라는 곳에 이 객체들을 삽입해 두고, finalizer 스레드를 이용해서 이 큐에 포함된 객체들의 finalizer를 순차적으로 호출한다. 
    - finalizer 큐에 삽입된 객체는 한 세대가 높아지기 때문에, 메모리에서 제거되는 시점이 느려진다
+- IDisposable.Dispose()의 작업
+   1. 모든 비관리 리소스를 정리한다
+   2. 모든 관리 리소스를 정리한다
+   3. 객체가 이미 정리되었음을 나타내기 위한 상태플래그를 설정한다
+   4. finalize호출 회피. GC.SuppressFinalize(this)를 호출한다
+
 - finalizer와 derived class에서 모두 Dispose를 사용하기 위해서는 protected type의 가상함수를 만들어 준다
    - protected virtual void Dispose(bool isDisposing)
+
+- 반드시 비 관리 리소스를 포함하는 경우에만 finalizer를 구현해야 한다. finalizer가 존재하는 것 만으로도 상당한 성능상의 손해가 있기 때문에, finalizer가 필요 없는 경우라면 절대 추가하지 않는다.                                                                
 
 - IDisposable 구현 관련 참고 링크
    - [CodeProject](https://www.codeproject.com/Articles/413887/Understanding-and-Implementing-IDisposable-Interfa)
