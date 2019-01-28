@@ -1,16 +1,30 @@
-## 초기화 
-- $git init
-- $git config --global user.name "Your Name"
-- $git config --global user.email my@email.com
+### 초기화 
+```console
+$ git config --global user.name "Your Name"
+$ git config --global user.email "my@email.com"
+```
 
-## Git에 파일 추가
+### 단축기(Alias) 설정
+예제: checkout을 co로 사용
+```console
+$ git config --global alias.co checkout
+```
+
+### 새 저장소 만들기
+1. 저장소로 등록할 폴더를 로컬에 생성
+2. init 명령어 사용
+    ```console
+    $ git init
+    ```
+
+### 파일 추가 및 커밋 
 1. $git status
 2. $git add --all
 3. $git commit -m "commit message"
 4. Github에서 Repository 만들기 -> 생성된 주소 복사
 5. git remote add origin '복사한 주소'
 6. git push -u origin master
-7. Github에서 push된 내용 확인하기s 
+7. Github에서 push된 내용 확인하기
 
 ## Git에서 파일을 업데이트 하지 않도록 하는 방법
 1. 상위폴더에 '.gitignore' 파일 추가
