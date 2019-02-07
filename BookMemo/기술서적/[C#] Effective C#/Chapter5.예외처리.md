@@ -89,3 +89,48 @@
          - 멀티캐스트 델리게이트의 경우 메서드 중 하나가 예외를 일으키면 다른 대상 메서드가 호출되지 않는 문제가 있다. 
 
 ## Item 49. catch 후 예외를 다시 발생시키는 것보다 예외 필터가 낫다
+- 예외 필터는 catch 문 이후에 when 키워드를 이용하여 구성하게 되는데 catch 문에 지정한 예외 타입에 대해서만 필터가 수행된다. 
+- 명시적으로 새로운 예외 객체를 생성한 후 이 예외를 발생시키면 예외 발생 위치가 바뀌므로 그렇게 해서는 안된다.
+- 스택되감기(Stack unwinding) 작업이나 catch 문의로의 진입과정은 수행 성능에 상당한 영향을 미친다. 예외 필터를 사용하면 스택 되감기와 catch 문의로의 진입 자체가 제한적으로 이뤄지기 때문에 성능이 개선되는 것이다. 최소한 성능이 나빠지지는 않는다. 
+- when 절이 있으면 컴파일러는 스택 되감기를 수행하기 이전에 예외 필터를 수행하도록 코드를 생성한다. 
+
+## Item 50. 예외 필터의 다른 활용 예를 살펴보라
+- 예외에 대한 로그 처리시 유용하게 활용 가능하다
+- 예시
+   ```c#
+   public static bool ConsoleLogException(Exception e)
+   {
+      WriteLine("Error: {0}", e);
+      return false;  // 항상 False를 반환한다.
+   }
+
+   // 예시 1. 모든 상황에 대한 로그 처리
+   try
+   {
+      data = MakeWebRequest();
+   }
+   catch (Exception e) when (ConsoleLogException(e))
+   {
+      // ConsoleLogException은 항상 False를 반환하기 때문에 Exception이 수행되지 않는다
+      // 이렇게 되면 catch문에 진입하기 위한 비용을 줄이면서 모든 에러에 대해서 로깅이 가능하다. 
+   }
+   catch (TimeoutException e) when (failures++ < 10)
+   {
+      WriteLine("Timeout error: trying again");
+   }
+
+   // 예시 2. 특정 상황에 대한 로그 처리
+   try
+   {
+      data = MakeWebRequest();
+   }
+   catch (TimeoutException e) when (failures++ < 10)
+   {
+      WriteLine("Timeout error: trying again");
+   }
+   catch (Exception e) when (ConsoleLogException(e))
+   {
+      // ConsoleLogException은 항상 False를 반환하기 때문에 Exception이 수행되지 않는다
+      // 앞에서 처리되지 않은 예외에 대해서만 로그를 기록한다
+   }
+   ```
