@@ -1,8 +1,7 @@
-## Stack
-### 정의
+## 정의
 - 먼저 들어간 것이 먼저 나오는 구조 (LIFO, Last In First Out)
 
-### ADT
+## ADT
 - Init
    ```c
    void StackInit(Stack* pstack);
