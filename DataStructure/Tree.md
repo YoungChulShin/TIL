@@ -44,3 +44,7 @@ void MakeRightSubTree(BTreeNode* main, BTreeNode* sub);
 
 ### 샘플 코드
 [Link](Code\Tree\BinaryTree2.c)
+
+## 수식 트리(Expression Tree)
+정의
+- 이진트리를 이용해서 수식을 표현해 놓은 것을 수식트리라고 한다
