@@ -96,6 +96,101 @@ Code에서 'InitializeComponent()' 호출은 'XAML 상태에 대한 수행'을 �
 
 ## 3.10 이벤트
 
+## 3.13 레이아웃
+WPF는 컨트롤의 자식, 부모에 의해 제약된 크기를 조회하고 마지막에 컨트롤 자체의 Width, MinWidth 또는 MaxWidth 속성을 확인한다. 부모 제한 크기는 자식 필수 크기보다 우선이고, Width 속성은 부모나 자식의 값보다 우선한다. 
 
+### Canvas
+- Canvas 컨트롤은 자식 크기를 제한하지 않기 때문에, Button을 하위에 정의하면 Button이 Canvas를 벗어날 수 있다
+- Canvas.Left, Canvas.Top으로 자식 컨트롤의 위치를 정의
+   ```xml
+   <Canvas>
+      <Button Canvas.Top="0" Canvas.Left="0">A</Button>
+      <Button Canvas.Top="25" Canvas.Left="0">B</Button>
+      <Button Canvas.Top="25" Canvas.Left="25">C</Button>
+      <Button Canvas.Top="0" Canvas.Left="500">C</Button>
+   </Canvas>
+   ```
+
+### StackPanel
+- Orientation 제어를 사용해서 Stack 과 같이 컨트롤르 쌓을 수 있다
+- 기본적으로 자식 컨트롤은 StackPanel에 맞게 지정되지만, HorizontalAlignment 또는 VertialAlignment를 통해서 크기를 조정가능하다
+   ```xml
+   <StackPanel Orientation="Vertical">
+      <Button>A</Button>
+      <Button>B</Button>
+      <Button>C</Button>
+      <Button>D</Button>
+   </StackPanel>
+   ```
+
+### DockPanel
+- 데스크탑 애플리케이션과 같은 화면 레이아웃을 빠르게 얻을 수 있다
+   ```xml
+   <DockPanel>
+      <Button DockPanel.Dock="Left" Content="Left" />
+      <Button DockPanel.Dock="Right" Content="Right" />
+      <Button DockPanel.Dock="Top" Content="Top" Height="30"/>
+      <Button DockPanel.Dock="Bottom" Content="Bottom" />
+      <Button Content="Takes waht's left" Height="100"/>
+   </DockPanel>
+   ```
+
+### UniformGrid
+- Grid의 Columns 속성을 이용해서 자동으로 필요한 컨트롤의 행과 열을 계산
+   ```xml
+   <UniformGrid Columns="2">
+      <Label>Name</Label>
+      <TextBox Width="70" />
+      <Label>Age</Label>
+      <ComboBox />
+   </UniformGrid>
+   ```
+
+### Grid
+- RowDefinition, ColumnDefinition을 통해서 레이아웃 정의 가능하다
+- Grid는 컨트롤은 자식 크기를 제한하기 때문에, Button을 하위에 정의하면 Grid에 맞게 너비가 지정된다
+- 컨트롤은 Grid.RowSpan 및 Grid.ColumnSpan 연결 속성을 이용해서 몇개의 열이나 행을 채울 수 있다
+- Width, Height 속성
+   1. 고정 숫자: 열/행에 픽셀의 수가 할당
+   2. Auto: 열/행이 자체 콘텐츠에 대한 크기로 적용
+   3. 별 또는 별이 붙은 숫자: 남은 높이/너비에 비례한 비율로 지정된다
+
+   ```xml
+   <Grid>
+      <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="auto" />
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="0">0</Button>
+      <Button Grid.Column="1">1</Button>
+      <Button Grid.Column="2">2</Button>
+      <Button Grid.Column="3">3</Button>
+   </Grid>
+   ```
+
+## 3.14 목록 컨트롤
+### 선택 컨트롤
+- ListBox, ComboBox
+   ```xml
+   <ListBox Height="150">
+      <Label>Element 1</Label>
+      <Label>Element 2</Label>
+      <GroupBox Header="Element3">
+            With some contents
+      </GroupBox>
+      <Label>Element 4</Label>
+   </ListBox>
+   
+   <ComboBox>
+      <Label>Element 1</Label>
+      <Label>Element 2</Label>
+      <GroupBox Header="Element3">
+            With some contents
+      </GroupBox>
+      <Label>Element 4</Label>
+   </ComboBox>
+   ```
 # 오타
 - p.38: Strike -> Stroke
