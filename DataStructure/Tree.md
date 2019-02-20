@@ -35,3 +35,16 @@ void MakeLeftSubTree(BTreeNode* main, BTreeNode* sub);
 
 void MakeRightSubTree(BTreeNode* main, BTreeNode* sub);
 - 오른쪽 서브 트리를 연결한다
+
+## 이진 트리의 순회(Traversal)
+### 방법
+- 전위 순회(Preorder Traversal) : 루트 노드를 먼저
+- 중위 순회(Inorder Traversal) : 루트 노드를 중간에
+- 후위 순회(Postorder Traversal) : 루트 노드를 마지막에 
+
+### 샘플 코드
+[Link](Code\Tree\BinaryTree2.c)
+
+## 수식 트리(Expression Tree)
+정의
+- 이진트리를 이용해서 수식을 표현해 놓은 것을 수식트리라고 한다
