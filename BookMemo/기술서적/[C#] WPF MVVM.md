@@ -192,5 +192,58 @@ WPF는 컨트롤의 자식, 부모에 의해 제약된 크기를 조회하고 �
       <Label>Element 4</Label>
    </ComboBox>
    ```
+
+# 4장. WPF 애플리케이션에서 데이터 관리
+## 4.1 데이터 바인딩
+- WPF에서는 Binding을 처리하는 XAML 코드를 통해서 동일한 동작을 C# code로 작성할 때에 비해서 더 짧고 직관적으로 처리 가능하다
+   ```xml
+   <StackPanel>
+      <Slider Maximum="100" Value="10" x:Name="slider" />
+      <ProgressBar Value="{Binding Value, ElementName=slider}"/>
+      <TextBox Text="{Binding Value, ElementName=slider}"/>
+      <TextBox Text="Yellow" x:Name="color" />
+   </StackPanel>
+   ```
+- 바인딩 모드
+
+   |모드|대상 변경|값 변경|
+   |--|--|--|
+   |TwoWay|Yes|Yes|
+   |OneWay|No|Yes|
+   |OneWayToSource|Yes|No|
+   |OneTime|No|No|
+
+## 4.3 변환기
+- XAML 엔진은 데이터 바인딩 시 객체 유형을 반환하는 작업을 수행한다
+- IValueConverter를 이용해서 확장 가능하다
+   ```c#
+   public class TwiceConverter : IValueConverter
+   {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+         double colorValue = double.Parse(value.ToString());
+         if (colorValue > 10)
+         {
+               return Colors.Red;
+         }
+         else if (colorValue >= 4 && colorValue <= 10)
+         {
+               return Colors.Green;
+         }
+         else
+         {
+               return Colors.Yellow;
+         }
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+         return null;
+      }
+   }
+   ```
+
 # 오타
 - p.38: Strike -> Stroke
+- p.114: Static/Resouce -> StaticResouce
+
