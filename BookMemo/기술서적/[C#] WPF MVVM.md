@@ -242,6 +242,55 @@ WPF는 컨트롤의 자식, 부모에 의해 제약된 크기를 조회하고 �
       }
    }
    ```
+## 4.4 목록 컨트롤을 사용하는 컬렉션 표시
+c# 코드
+```c#
+var cars = new List<Car>();
+for (int i = 0; i < 10; i++)
+{
+      cars.Add(new Car()
+      {
+         Speed = i * 10,
+         Color = Colors.Red
+      });
+}
+
+this.DataContext = cars;
+```
+XAML 코드
+```xml
+<ListBox ItemSource="{Binding}" />
+```
+
+하지만 이렇게 하면 ListBox에 표시할 방법이 정해져있지 않기 때문에 ToString으로 표시가 된다. 결국 Class명이 표시된다
+
+## 4.5 목록 컨트롤 사용자 정의
+사용자 정의 속성
+- ItemPanel: 요소를 배치하는 방법 설명. 항목 레이아웃
+- ItemTemplate: 각 요소에 대해 반복이 필요한 템플릿을 제공한다. 각 항목의 모양
+- ItemContainerStyle: 항목을 선택하거나 마우스를 올릴 때의 동작 방법을 설명
+- Template: 컨트롤 자체를 렌더링하는 방법을 설명한다. 목록 주위(테두리, 배경, 스크롤바)
+
+```xml
+ <ListBox ItemsSource="{Binding}">
+   <ListBox.ItemTemplate>
+         <DataTemplate>
+            <StackPanel>
+               <TextBlock Text="Speed" />
+               <TextBox Text="{Binding Speed}" />
+               <Slider Value="{Binding Speed}" Maximum="100" />
+               <TextBlock Text="Color" />
+               <Border Height="10">
+                     <Border.Background>
+                        <SolidColorBrush Color="{Binding Color}" />
+                     </Border.Background>
+               </Border>
+               <TextBox Text="{Binding Color}"/>
+            </StackPanel>
+         </DataTemplate>
+   </ListBox.ItemTemplate>
+</ListBox>
+```
 
 # 오타
 - p.38: Strike -> Stroke
