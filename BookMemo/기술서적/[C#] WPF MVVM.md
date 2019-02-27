@@ -292,6 +292,24 @@ XAML 코드
 </ListBox>
 ```
 
+## 4.8 INotifyPropertyChanged
+컨트롤을 통해 사용자가 속성을 업데이트 하면 동일한 속성에 바인딩된 다른 컨트롤이 작성된 코드가 전혀 없어도 업데이트 된다. 그러나 코드 자체로 인해 속성이 변경되면 해당 속성에 바인딩된 컨트롤이 업데이트 되지 않는다. 이런 종류의 시나리오가 작동하려면 속성이 변경되기 시작할 때 이벤트를 발생시켜야 한다. 
+
+속성 변경 이벤트는 INofityProperyChanged 이벤트로 대응 가능하다
+
+```c#
+public class Notifier : INotifyPropertyChanged
+{
+   public event PropertyChangedEventHandler PropertyChanged;
+
+   protected void OnPropertyChanged (string propertyName)
+   {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+   }
+}
+```
+
+
 # 오타
 - p.38: Strike -> Stroke
 - p.114: Static/Resouce -> StaticResouce
