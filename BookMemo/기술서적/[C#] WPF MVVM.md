@@ -309,6 +309,65 @@ public class Notifier : INotifyPropertyChanged
 }
 ```
 
+## 5장. 빛나게 만들기 모양 사용자 정의
+### 5.1 컨트롤 모양 변경
+Template 속성
+- 모든 WPF 컨트롤은 Template 속성이 있다
+- 컨트롤에 새로운 모양을 제공하라면 ControlTemplate 인스턴스를 속성에 할당해야 한다
+- 예시
+   ```xml
+    <Button Content="Press me" Background="DarkSalmon"  >
+      <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}">
+               <Grid>
+                  <Ellipse Fill="{TemplateBinding Background}" Width="100" Height="100" />
+                  <Label Content="{TemplateBinding Content}" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" />
+               </Grid>
+            </ControlTemplate>
+      </Button.Template>
+   </Button>
+   ```
+- TargetType 속성은 ControlTemplate이 Button에 적용된 다는 것을 알 수 있다
+
+TemplateBinding
+- ControlTemplate만 적용하면, Control에 적용한 값이 반영되지 않는다. 이를 반영하기 위해서는 TemplateBinding을 사용해서 ControlTemplate 항목에 할당해줘야 한다
+- 예시
+   ```xml
+   <Button Grid.Column="1" Grid.Row="1" Margin="5" Content="Send">
+      <Button.Template>
+            <ControlTemplate TargetType="Button">
+               <Grid>
+                  <Ellipse Fill="#AA000000" Margin="10,10,0,0" />
+                  <Ellipse Fill="{TemplateBinding Background}" Margin="0,0,10,10" />
+                  <Viewbox Margin="5,5,15,15">
+                        <ContentPresenter />
+                  </Viewbox>
+               </Grid>
+            </ControlTemplate>
+      </Button.Template>
+   </Button>
+   ```
+### 5.4 리소스
+리소스
+- 애플리케이션 전체에서 사용가능한 XAML을 구현. 최상단의 public static 개념인듯?
+- 저장 위치
+   - 화면: 페이지, 사용자 정의 컨트롤 같이 단일 화면으로 범위가 지정된 리소스
+   - 애플리케이션: App.xaml에 선언된 Application요소와 같이 애플리케이션 전반에 걸쳐 사용되는 리소스
+- 예시
+   ```xml
+   <Application.Resources>
+      <LinearGradientBrush x:Key="background">
+         <GradientStop Color="#FFDBFFE7" Offset="0" />
+         <GradientStop Color="#FF03882D" Offset="1" />
+      </LinearGradientBrush>
+   </Application.Resources>
+   ```
+
+   ```xml
+   
+   ```
 
 # 오타
 - p.38: Strike -> Stroke
