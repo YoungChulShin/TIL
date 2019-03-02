@@ -368,6 +368,67 @@ TemplateBinding
    ```xml
    
    ```
+### 5.7 스타일
+스타일
+- 다중 속성 설정자로 생각하면 된다. (=Multi property setters)
+- 하나의 컨트롤에 여러개의 속성을 정의할 때 리소스를 사용한다면 n번 설정해야하는 것을 스타일을 이용하면 하나의 스타일에 n개의 리소스를 설정 가능하다
+- App.xml에 구현 가능
+   ```xml
+   <Style x:Key="niceButton" TargetType="Button">
+      <Setter Property="Width" Value="50" />
+      <Setter Property="Height" Value="50" />
+      <Setter Property="Background">
+            <Setter.Value>
+               <LinearGradientBrush>
+                  <GradientStop Color="Red" />
+                  <GradientStop Color="Yellow" Offset="1" />
+               </LinearGradientBrush>
+            </Setter.Value>
+      </Setter>
+   </Style>
+   ```
+
+암시적 스타일
+- 앞에서 설명한 스타일이 명시적이라면 암시적 스타일을 키를 사용하지 않는다. 그리고 그 범위가 스타일을 선언하는 범위에 한정된다
+- 암시적으로 선언된 스타일은 해당 범위안에 있는 컨트롤에 별도로 Key를 선언하지 않아도 자동으로 반영 된다
+- 예시
+   ```xml
+   <Window.Resources>
+      <Style TargetType="Button">
+         <Setter Property="Width" Value="50" />
+         <Setter Property="Height" Value="50" />
+         <Setter Property="Background">
+               <Setter.Value>
+                  <LinearGradientBrush>
+                     <GradientStop Color="Red" />
+                     <GradientStop Color="Yellow" Offset="1" />
+                  </LinearGradientBrush>
+               </Setter.Value>
+         </Setter>
+      </Style>
+   </Window.Resources>
+   ```
+
+컨트롤에 리소스를 적용하는 방법
+1. 해당 컨트롤에 직접 정의
+2. 해당 페이지에만 영향을 미치도록 정의: 암시적 스타일
+3. 솔루션 전역 위치에 정의: App.xaml에 정의. 명시적 스타일
+
+
+### 5.11 변형
+WPF에서는 컨트롤을 쉽게 변경,회전 또는 기울일 수 있다. 
+
+변경을 위한 속성에는 RenderTransform 및 LayoutTransform 이 있다
+1. RenderTransform
+   - 필요한 크기를 계산할 때 변환을 고려하지 않는다
+   - 따라서 컨트롤을 회전했을 때 겹쳐일 수 있다
+   - 더 자주 사용
+2. LayoutTransform
+   - 필요한 크기를 계산할 때 변환을 고려한다
+
+### 5.12 컨트롤 상태
+
+
 
 # 오타
 - p.38: Strike -> Stroke
