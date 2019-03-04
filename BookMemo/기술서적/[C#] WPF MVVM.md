@@ -434,14 +434,79 @@ WPF에서는 컨트롤을 쉽게 변경,회전 또는 기울일 수 있다.
 Blend for visual studio
 - 애니메이션을 XAML로 작성하는 방법도 있지만, Blend를 이용하면 쉽게 생성 가능하다
 
-
-
 ## 6. WPF MVVM 패턴
 ### 6.1 스파게티 코드
+코드와 디자인 이벤트가 함께 구현되어 있는 소스 코드
+- 예: Winforms의 Code behind
+- 문제점
+   - 거대한 파일을 만들어내고 유보수 하기가 갈수록 어렵다
+   - 테스트가 어렵다. 컨트롤과 논리적코드가 많이 섞여 있기 때문에 테스트를 하려면 UI를 인스턴스화 해야 한다
+   - 재사용이 어렵다. 
 
+### 6.2 MVC
+MVC
+- 뷰: 순수 XAML
+- 모델: InotifyPropertyChanged 및 INotifyCollectionChanged를 구현하는 클래스
+- 컨트롤러: 명령, 트리거, 관련 이벤트, NavigationService
 
+SOC
+- Separation of Concerns
+
+### 6.3 MVVM
+DataModel
+- 비니지스 클래스
+- UI에 제공된 데이터를 가지고 있다
+
+View
+- UI
+- 이상적으로 View는 순수 XAML로 구성
+- View는 자동화된 테스트를 사용해 테스트가 어렵기 때문에 View의 코드양을 줄여야 하는 이유다
+
+ViewModel
+- 하나의 뷰에 대한 메소드로 속성 및 액션을 사용해 데이터를 노출한다
+- View를 참조하지 않아야 하지만 View에 크게 의존
+- 단위 테스트를 쉽게 할 수 있다
+- INotifyPropertyChanged를 구현한다
+- 단순한 클래스. 각 화면당 하나의 ViweModel은 좋은 출발점이다
+- 명명은 클래스의 이름에 + ViewModel로 하면 좋다
+
+구현 순서
+1. ViewModel을 생성
+2. ViewModel이 공개해야 하는 속성과 메소드를 찾는다
+3. 알림 속성(Property)를 선언하고 공용 메소드를 추가한다 (=ViewModel를 구현)
+   ```c#
+   private double speed;
+   public double Speed
+   {
+      get
+      {
+         return speed;
+      }
+      set
+      {
+         speed = value;
+         OnPropertyChagned("Speed");
+         OnSpeedChanged();
+      }
+   }
+
+   private void OnSpeedChanged()
+   {
+      // 기능 코드 추가
+   }
+   ```
+4. ViewModel의 View를 DataContext로 사용한다
+5. View를 ViewModel 속성에 데이터 바인딩한다
+6. View에 VieeModel 메소드를 호출하는 트리거를 추가한다
+7. 기능적 논리를 코딩한다
+
+### 6.9 MVVM 프레임워크
+종류
+- Prism
+- MVVM Light
+- Caliburn.Micro
 
 # 오타
 - p.38: Strike -> Stroke
 - p.114: Static/Resouce -> StaticResouce
-
+- View ? 뷰? 용어 혼재
