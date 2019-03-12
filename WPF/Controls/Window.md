@@ -13,7 +13,9 @@ Border의 DropShadowEffect를 적용
 ## 코너를 부드럽게
 Border에서 CornerRaious 값을 할당
 
+## 최소, 최대 크기
+MinWidth, MinHeight 속성 사용
+
 ## 기타 속성
 ### WindowStyle
 윈도우 창 표시 여부 설정
-
