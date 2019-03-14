@@ -12,8 +12,6 @@
 <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
 ```
 
-
-
 ## Button에 Style 적용
 1. 리소스에 버튼 Style 정의
     ```xml

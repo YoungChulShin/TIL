@@ -27,3 +27,10 @@
     <TextBlock Text="Welcome, friend!" FontFamily="{StaticResource LatoRegular}" FontSize="40"  />
     <TextBlock Text="Welcome, friend!" FontFamily="{StaticResource LatoThin}" FontSize="40"  />
     ```
+
+## Font Size도 리소스로 등록해서 사용
+```xml
+<system:Double x:Key="FontSizeRegular">20</system:Double>
+<system:Double x:Key="FontSizeSmall">14</system:Double>
+<system:Double x:Key="FontSizeLarge">30</system:Double>
+```
