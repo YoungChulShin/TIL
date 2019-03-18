@@ -1,45 +1,45 @@
-### 초기화 
+## 셋업 및 추가 방법
+### 1. 초기화 
 ```console
 $ git config --global user.name "Your Name"
 $ git config --global user.email "my@email.com"
 ```
 
-### 단축기(Alias) 설정
-예제: checkout을 co로 사용
-```console
-$ git config --global alias.co checkout
-```
-
-### 새 저장소 만들기
+### 2. 새 저장소 만들기
 1. 저장소로 등록할 폴더를 로컬에 생성
 2. init 명령어 사용
     ```console
     $ git init
     ```
-
-### 파일 추가 및 커밋 
-1. $git status
-2. $git add --all
-3. $git commit -m "commit message"
-4. Github에서 Repository 만들기 -> 생성된 주소 복사
-5. git remote add origin '복사한 주소'
-6. git push -u origin master
-7. Github에서 push된 내용 확인하기
+### 3. 파일 추가 및 커밋 
+```console
+$ git status
+$ git add --all
+$ git commit -m 'commit message'
+$ git remote add origin https://github.com/YoungChulShin/test.git 
+$ git push -u origin master
+```
 
 ## Git에서 파일을 업데이트 하지 않도록 하는 방법
 1. 상위폴더에 '.gitignore' 파일 추가
 2. 해당 파일 안에 내용 추가<br>
 
 ## Git에서 파일을 업데이트 하는 방법
-1. #git clone "원격 저장소 주소"
-2. #git pull
+```console
+$ git clone "원격 저장소 주소"
+$ git pull
+```
 
 ## Git Remote repository check & change
-1. $git remote -v
-2. $git remote set-url origin "repository url"
+```console
+$ git remote -v
+$ git remote set-url origin "repository url"
+```
 
 ## Git에서 파일 롤백하는 방법
-1. $git checkout -- "파일명"
+```console
+$ git checkout -- "파일명"
+```
 
 ## Git Push Error
 1. Permission denied error
@@ -56,3 +56,9 @@ $ git config --global alias.co checkout
 
 ## Git Bash에서 파일 추가
 1. $touch '파일 명"
+
+### 단축기(Alias) 설정
+예제: checkout을 co로 사용
+```console
+$ git config --global alias.co checkout
+```
