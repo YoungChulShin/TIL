@@ -57,3 +57,6 @@ rebase 명령어를 이용해서 flow를 하나의 줄기로 만들고 병합하
    ```console
    $ git merge issue3
    ```
+
+아래와 같이 Flow가 생성
+![](https://backlog.com/git-tutorial/kr/img/post/stepup/capture_stepup2_8_2.png)
