@@ -1,4 +1,7 @@
 ## **The good**
+The sample [Flutter Gallery app](https://play.google.com/store/apps/details?id=io.flutter.demo.gallery&hl=en), which showcases many of the Android and iOS UI components.
+
+To get a sense of the performance and the look and feel of a Flutter app in comparison to a Native app, just download the **[Flutter Gallery app](https://play.google.com/store/apps/details?id=io.flutter.demo.gallery&hl=en)** from the Play Store (and maybe look at its [source code on GitHub](https://github.com/flutter/flutter/tree/master/examples/flutter_gallery)). Also, refer to the [Widget Catalog page](https://flutter.io/widgets/) in the official docs.
 
 You do know the movie ‘[The Good, the Bad and the Ugly](https://en.wikipedia.org/wiki/The_Good,_the_Bad_and_the_Ugly)’, right?
 
@@ -25,11 +28,8 @@ Dart는 간단하지만 Swift, Kotlin 또는 Java에 필적하는 강력하고 �
 
 
 5. Flutter and Dart have built-in support for both unit testing for logic, and widget testing for UI/interactions. For example, you can send tap and scroll gestures, find child widgets in the widget tree, read text, and verify that the values of widget properties are correct. The official docs does a good job at clearly presenting what’s available. This article by Devon Carew shows how the Flutter plugin makes it all well integrated into your code editor.
-Flutter와 Dart는 로직의 단위 테스트와 UI/상호작용을 위한 위젯 테스트를 모두 기본적으로 지원합니다. 
+Flutter와 Dart는 로직의 단위 테스트와 UI/상호작용을 위한 위젯 테스트를 모두 기본적으로 지원합니다. 예를 들어서 탭이나 스크롤을 했을 때, 위젯 트리에서 자식 위젯을 찾고, 텍스트를 읽어서 위젯의 속성 값이 맞는지 검증할 수 있습니다. 어떤 것들을 사용할 수 있는지는 공식 문서에서 잘 설명하고 있습니다. Devon Carew가 작성한 이 기사는 Flutter 플러그인을 사용해서 이 모든 것들을 여러분의 에디터에 통합하는 방법을 보여줍니다. 
 
-Flutter와 Dart는 로직에 대한 단위 테스트와 UI / 상호 작용에 대한 위젯 테스트를 기본적으로 지원합니다. 예를 들어 탭 및 스크롤 제스처를 보내고 위젯 트리에서 하위 위젯을 찾고 텍스트를 읽고 위젯 속성의 값이 올바른지 확인할 수 있습니다. 공식 문서는 사용 가능한 것을 명확하게 제시하는 데 훌륭한 역할을합니다. Devon Carew가 작성한이 기사에서는 Flutter 플러그인을 사용하여 코드 편집기에 모든 기능을 통합하는 방법을 보여줍니다.
-
-
-6. I love the built-in support for themingevery aspect of the app’s UI. The most difficult part in creating the light and dark themes of my app was actually picking the right colour (I created just two, but could have created 10 with the same approach). In terms of code, it’s just a few lines (basically set the theme property of the root MaterialApp object — see this for a full example).
+6. I love the built-in support for theming every aspect of the app’s UI. The most difficult part in creating the light and dark themes of my app was actually picking the right colour (I created just two, but could have created 10 with the same approach). In terms of code, it’s just a few lines (basically set the theme property of the root MaterialApp object — see this for a full example).
 
 Bonus: This is an advantage of any cross-platform technology in reality, not just Flutter, but I’m still going to mention it: creating an app for both platforms at the same time makes it much easier to keep them aligned at all times. With the traditional development process, you might launch both platforms at the same time and with feature parity but then after a short while you realise that one platform is performing better than the other (in terms of downloads, sales, ad revenues, …). Then you start cutting costs on the other, which means that one is partially left behind.
