@@ -1,0 +1,1 @@
+## 다국어 처리를 위한 Static Resource
