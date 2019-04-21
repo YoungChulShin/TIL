@@ -76,6 +76,7 @@ private static void Count(CancellationToken token, int countTo)
 # tasks
 ### 등장 배경
 - ThreadPool의 경우 작업완료시점과 작업수행결과를 얻을 수 있는 방법을 기본적으로 제공하고 있지 않다
+- Task의 경우 메모리 사용이 ThreadPool보다는 많기 때문에 Task가 제공하는 기능이 곡 필요한 것이 아니라면 ThreadPool.QueueUserWorkItem을 사용하는 것도 하나의 방법이다. 
 
 ### 사용 방법
 ```c#
@@ -150,3 +151,27 @@ t.ContinueWith(task => Console.WriteLine("Sum was cancelled"), TaskContinuationO
 Console.WriteLine("End");
 Console.ReadLine();
 ```
+
+### Child Task
+TaskCreateOptions에서 AttachedToParent 플래그를 지정하면 새로운 Task를 Child Task로 지정 가능하다. Child Task가 완료되어야지 Parent Task가 완료된다.
+
+```c#
+Task<int[]> parent = new Task<int[]>(() =>
+{
+    var results = new int[3];
+
+    new Task(() => results[0] = Sum(10000), TaskCreationOptions.AttachedToParent).Start();
+    new Task(() => results[1] = Sum(10000), TaskCreationOptions.AttachedToParent).Start();
+    new Task(() => results[2] = Sum(10000), TaskCreationOptions.AttachedToParent).Start();
+
+    return results;
+});
+
+var cwt = parent.ContinueWith(parentTask => Array.ForEach(parentTask.Result, Console.WriteLine));
+
+parent.Start();
+```
+
+### Task Factory
+동일 속성의 Task 객체를 여러개 생성하고 싶을 때 사용 할 수 있다
+
