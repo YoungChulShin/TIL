@@ -13,6 +13,42 @@
    - IoC 컨테이너를 사용하지 않고 new 연산자를 이용해서 직접 생성자를 전달하는 방식
 - 제어의 역행 (IoC) 컨테이너를 사용하는 방법
 
-### Poor Man's Dependency Injection
-- 초기화 코드에 따라 다르겠지만 애플리케이션의 진입점은 의존성 주입 코드를 작성하기에 최적의 위치
+## 객체를 생성해서 전달하는 방법
 
+### Poor Man's Dependency Injection (객체 직접 생성을 통한 의존성 주입)
+특징
+- 초기화 코드에 따라 다르겠지만 애플리케이션의 진입점은 의존성 주입 코드를 작성하기에 최적의 위치
+- 객체 직접 생성 방식을 적용하면 작성할 코드가 많아진다
+   - 그 결과로 초기화 코드 복잡해질 수 있다
+- 필요한 객체의 그래프를 직접 생성하면 되기 때문에 유연하고, 명확하다
+
+예시
+   ```C#
+   var settings = new ApplicationSettings();
+   var taskService = new TaskServiceAdo(settings);
+   var objectMapper = new MapperAutoMapper();
+   controller = new TaskListController(taskService
+   ```
+
+### 메서드 주입
+특징
+- 의존성을 주입하기 위해서 메서드의 매개변수를 이용하는 방법
+- 호출되는 메서드가 의존성을 필요로하는 유일한 부분일 때 유용하다
+- 메서드를 호출하는 클라이언트가 결국 의존 객체를 확보해야하는 점은 단점이다. 클라이언트는 생성자 매개변수나 메서드 매개변수 중 한가지를 통해 의존 객체를 전달할 수 있다.
+
+### 속성 주입
+특징
+- 속성을 이용해서 의존성을 주입하는 방법
+- 런타임에 필요 시점에 속성을 교체 가능하다는 점이 장점
+
+예시
+   ```c#
+   // 속성 주입
+   //taskService.Settings = settings;
+   //var taskDtos = taskService.GetAllTasks();
+
+   // 매서드 주입
+   //var taskDtos = taskService.GetAllTasks(settings);
+   ```
+
+## 제어의 역행
