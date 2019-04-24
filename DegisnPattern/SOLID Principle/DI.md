@@ -52,3 +52,44 @@
    ```
 
 ## 제어의 역행
+특정
+- 객체의 생성을 런타임 시점으로 미룰 수 있다. (생성자를 통한 주입은 컴파일 시점에 생성)
+- 애플리케이션에 정의된 인터페이스와 그들의 실제 구현체들을 연결하여 클래스의 인스턴스를 생성할 때 필요한 의존성을 모두 해석(resolve)해준다
+- 모든 클래스의 인스턴스를 직접 생서앟여 생성자에 전달했던 객체 직접 생성 방식의 절차를 그대로 따르지만, 모든 것이 자동화되어 있다는 차이점이 있다
+
+예시
+   ```c#
+   // 생성자 주입
+   //var settings = new ApplicationSettings();
+   //var taskService = new TaskServiceAdo();
+   //var objectMapper = new MapperAutoMapper();
+   //controller = new TaskListController(taskService, objectMapper, settings);
+   //MainWindow = new TaskListView(controller);
+
+   //ICT 컨테이너
+   container = new UnityContainer();
+   container.RegisterType<ISettings, ApplicationSettings>();
+   container.RegisterType<IObjectMapper, MapperAutoMapper>();
+   container.RegisterType<ITaskService, TaskServiceAdo>();
+   container.RegisterType<TaskListController>();
+   container.RegisterType<TaskListView>();
+
+   MainWindow = container.Resolve<TaskListView>();
+   MainWindow.Show();
+   ```
+
+
+등록, 해석, 해제 패턴
+- 등록(Register)
+   - 초기화 시점에 처음 호출
+   - 인터페이스와 구현를 등록하기 위해 여러번 호출 될 수 있다
+   - 인터페이스 없이 구현체만 등록될 수도 있다
+- 해석(Resolve)
+   - 실행되는 동안 호출된다
+   - 주로 객체 그래프의 최상위에 위치한 클래스를 해석하고자 할 때 사용된다
+   - 이 메서드는 인프라스트럭처에 해당하는 코드에서 호출해야 한다. 즉, 큰터를로, 뷰, 프레젠터, 서비스, 도메인, 비니지스 로직 혹은 데이터 엑세스를 위한 클래스들이 Resolve 메서드를 호출해서는 안된다
+- 해제(Release)
+- 폐기(Dispose)
+   - 완전히 종료될 때 한번 호출
+- 기타
+   - 메소드를 등록해야 하는 객체가 늘어날 수록 메서드 자체가 복잡해질 수 있기 때문에 여러개의 메서드로 분리하는 것이 좋다
