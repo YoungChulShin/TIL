@@ -60,3 +60,35 @@ public class DeleteConfirmation<T> : IDelete<T>
     }
 }
 ```
+
+## 클라이언트의 생성
+
+### 다중 구현과 다중 인스턴스
+다중 구현
+- 인터페이스르르 여러개로 분리해서 사용
+- 예: IRead, ISave, IDelete
+
+다중 인스턴스
+- 다중 구현된 클래스의 Object를 만들기 위해서는 각각의 인스턴스를 생성해서 클래스의 인자로 넘겨줘야 한다
+    ```c#
+    var reader = new Reader<order>();
+    var saver = new Reader<order>();
+    var deleter = new Reader<order>();
+
+    new OrderController(reader, saver, deleter);
+    ```
+
+### 단인 구현과 단일 인스턴스
+다중 인스턴스의 구현을 1개의 클래스에서 모두 하기 위한 동작
+```c#
+var crud = new CreateReadUpdateDelete<order>();
+
+// crud가 reader, saver, deleter의 기능을 모두 가지고 있다
+new OrderController(crud, crud, crud);
+```
+
+### 인터페이스 수프 안티패턴
+분리된 인터페이스를 다시 섞어버리는 인터페이스. 
+
+인터페이스 분리의 장점이 희석된다.
+
