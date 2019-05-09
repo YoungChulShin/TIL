@@ -1,3 +1,16 @@
+참고 자료
+- 테스트주도 개발
+- C#으로 배우는 적응형 코드
+---
+## 테스트 케이스 작성 예시
+### 생성자
+Null을 허용하지 않는 생성자에 대한 체크
+```c#
+public void ConstrunctionWithoutRepositoryThrowsArgumentNullException();
+public void ConstrunctionWithValidParameterDoesNotThrowException();
+```
+
+
 ## 문제 해결 예시
 ### 테스트 문제 예시
 ```c#
