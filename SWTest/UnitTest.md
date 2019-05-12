@@ -10,7 +10,6 @@ public void ConstrunctionWithoutRepositoryThrowsArgumentNullException();
 public void ConstrunctionWithValidParameterDoesNotThrowException();
 ```
 
-
 ## 문제 해결 예시
 ### 테스트 문제 예시
 ```c#
