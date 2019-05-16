@@ -54,4 +54,70 @@ C#의 default() 연산자는 특정 타입의 기본 값을 가져온다 (값타
    public bool AreEqual2<T>(T left, T right) where T : IComparable<T> => left.CompareTo(right) == 0;
    ```
 
-### Item19. 런타임에 타입을 확인하여 최적의 알고리즘을 사용하라
+## Item19. 런타임에 타입을 확인하여 최적의 알고리즘을 사용하라
+
+
+## Item20. IComparable<T>와 IComparer<T>를 이용해서 객체의 선후 관계를 정의하라
+### 닷넷에서 제공하는 2개의 선후관계 인터페이스
+1. IComparable<'T'> : 타입의 기본적인 선후 관계를 정의
+2. IComparer<'T'> : 기본적인 선후 관계 이외의 추가적인 선후관계를 정의한다
+
+### 구현 시 참고
+- 닷넷 최신 API들은 대체로 IComparable<T>를 사용하지만, 일부 오래된 API들은 여전히 IComparable을 사용한다. 따라서 IComparable<T>를 구현할 때는 IComparable도 함께 구현해야 한다. 
+- 타입 매개변수를 취하지 않는 IComparable의 경우 런타임에 타입을 확인해야 한다. 박싱/언박싱으로 인한 성능 비용도 발생한다. 
+
+### 추가적인 선후관계 구현
+1. Comparison<'T'> 라는 델리게이트에 작업을 위임한다
+   ```c#
+   public delegate int Comparison<in T>(T x, T y);
+   ```
+2. 오래된 라이브러리는 IComparer 인터페이스를 통해서 제공
+
+### 구현 예시
+   ```c#
+   public struct Customer : IComparable<Customer>, IComparable
+   {
+      private readonly string name;
+      private double revenue;
+
+      public Customer(string name, double revenue)
+      {
+         this.name = name;
+         this.revenue = revenue;
+      }
+
+      // IComparable<Customer> 멤버
+      public int CompareTo(Customer other) => name.CompareTo(other.name);
+
+      // IComparable 멤버
+      public int CompareTo(object obj)
+      {
+         if (!(obj is Customer))
+         {
+               throw new ArgumentException("Argument is not a Customer", nameof(obj));
+         }
+
+         Customer otherCustomer = (Customer)obj;
+
+         return this.CompareTo(otherCustomer);
+      }
+
+      // 추가적인 정렬이 필요할 경우 Comparison<Customer> 델리게이트에 작업을 위임한다
+      public static Comparison<Customer> CompareByRevenue =>
+         (left, right) => left.revenue.CompareTo(right.revenue);
+
+      // 오래된 라이브러리의 경우는 Comparison<T>와 유사한 ICompare 인터페이스를 통해서 제공
+      private static Lazy<RevenueComparer> revComp =
+         new Lazy<RevenueComparer>(() => new RevenueComparer());
+
+      public static IComparer<Customer> RevenueCompare => revComp.Value;
+
+      private class RevenueComparer : IComparer<Customer>
+      {
+         public int Compare(Customer x, Customer y)
+         {
+               return x.revenue.CompareTo(y.revenue);
+         }
+      }
+   }
+   ```
