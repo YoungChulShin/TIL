@@ -42,3 +42,23 @@ TDD를 하면서 마지막 단계(중복 제거)에서 코드의 리팩토링이
    - 상위 클래스로 옮기면서 하위 클래스에서 공통적으로 구현되어야 하는 것은 Abstract로 처리
    - 이렇게 하면 상위 클래스에서 Factory Method를 이용하여 하위 클래스 생성에 관여할 수 있다
    - **하위 클래스의 존재를 클라이언트 코드는 알지 못한다. 이를 통해 하위 클래스의 존재를 테스트에서 분리(decoupling)함으로써 어떤 모델 코드에도 영향을 주지 않고 상속 구조를 마음대로 변경할 수 있게 되었다**
+
+## 예시
+### 클래스를 명시적으로 참조
+클래스를 명시적으로 검사하는 코드가 있을 때에는 항상 다형성을 사용하도록 바꾸는 것이 좋다
+```c#
+public Money Reduce(IExpression source, string to)
+{
+   // 변경 전
+   //if (source is Money)
+   //{
+   //    return (Money)source.Reduce(to);
+   //}
+
+   //Sum sum = (Sum)source;
+   //return sum.Reduce(to);
+
+   // 변경 후
+   return source.Reduce(to);
+}
+```
