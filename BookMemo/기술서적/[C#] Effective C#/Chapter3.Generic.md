@@ -121,3 +121,67 @@ C#의 default() 연산자는 특정 타입의 기본 값을 가져온다 (값타
       }
    }
    ```
+
+## Item21. 타입 매개변수가 IDisposable을 구현한 경우를 대비하여 제네릭 클래스를 작성하라
+### 제약 조건의 2가지 역할
+1. 런타임 오류가 발생할 가능성이 있는 부분을 컴파일 타임에 오류로 대체할 수 있다
+2. 타입 매개변수로 사용할 수 있는 타입을 명확히 규정할 수 있다
+
+하지만 무엇을 해야하는지만을 규정할 수 있고, 무엇을 하면 안되는지에 대한 규정은 없다. 
+
+### 타입 매개변수로 지정하는 타입이 IDisposable을 구현하고 있다면 추가작업이 반드시 필요하다
+T가 지역 변수
+- using 문을 사용해서 using 블록이 종료될 때 Dispose가 호출되도록 한다
+   ```c#
+   public class EngineDriverOne<T> where T : IEngine, new()
+   {
+      public void GetThingsDone()
+      {
+         //구현 1 - T가 IDisposable을 구현하고 있으면 누수가 발생할 수 있음
+         //T driver = new T(); 
+         //driver.DoWork();    
+
+         //구현 2 - T가 IDisposable이면 driver.DoWork가 완료되고 Dispose가 호출
+         T driver = new T();
+         using (driver as IDisposable)
+         {
+               driver.DoWork();
+         }
+      }
+   }
+   ```
+
+T가 멤버 변수
+- T가 멤버변수라면 Class가 IDisposable을 구현하여 Dispose함수에 멤버변수 처리 로직을 추가한다
+   ```c#
+   public sealed class EngineDriverTwo<T> : IDisposable where T : IEngine, new()
+   {
+      private Lazy<T> driver = new Lazy<T>(() => new T());
+
+      public void GetThingsDone() => driver.Value.DoWork();
+
+      public void Dispose()
+      {
+         if (driver.IsValueCreated)
+         {
+               var resource = driver.Value as IDisposable;
+               resource?.Dispose();
+         }
+      }
+   }
+   ```
+
+이러한 구조가 복잡하다면 T의 처리를 외부로 넘길 수 있다. 생성된 T의 object를 생성자의 파라미터로 처리하면 구조를 간단히 할 수 있다
+   ```c#
+   public sealed class EngineDriver<T> where T : IEngine
+   {
+      private T driver;
+      public EngineDriver(T driver)
+      {
+         this.driver = driver;
+      }
+   }
+   ```
+
+중요한 것은 제네릭 클래스의 타입 매개변수로 객체를 생성하는 경우 이 타입이 IDisposable을 구현하고 있는지를 확인해야 한다는 것이다. 항상 방어적으로 코드를 작성하고 객체가 삭제될 때 리소스가 누수되지 않도록 주의해야 한다. 
+
