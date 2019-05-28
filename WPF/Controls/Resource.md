@@ -35,13 +35,24 @@ XAML에서 리소스 접근
 - StaticResource를 이용해서 참조
    - WindowResource의 경우는 ResourceKey를 같이 참조
    ```xml
-    <Window.Background>
-        <StaticResource ResourceKey="backgroundBrush" />
-    </Window.Background>
+   <Window.Resources>
+      <SolidColorBrush x:Key="backgroundBrush">Yellow</SolidColorBrush>
+   </Window.Resources>
+   <Window.Background>
+      <StaticResource ResourceKey="backgroundBrush" />
+   </Window.Background>
    ```
 
 ### 리소스 룩업
-리소스를 찾을 때 그 아이템이 반드시 현재 엘리먼트의 리소스 딕셔너리에 있을 필요는 없다. 로지컬 트리를 탐색할 수 있는데, 우선 리소스 딕셔너리인 Resources 컬렉션을 검색하고, 필요한 아이템이 없다면 루트 엘리먼트에 도달할 때까지 부모 엘리먼트를 계속 찾는다. 
+리소스를 찾을 때 그 아이템이 반드시 현재 엘리먼트의 리소스 딕셔너리에 있을 필요는 없다. 
+
+로지컬 트리를 탐색할 수 있는데 순서는 아래와 같다.
+1. 우선 리소스 딕셔너리인 Resources 컬렉션을 검색
+   - MergedDictionaries와 개발 Resource는 개발 Resource가 더 우선한다
+2. 필요한 아이템이 없다면 루트 엘리먼트에 도달할 때까지 부모 엘리먼트를 계속 찾는다. 
+3. Application 객체의 Resources 컬렉션을 검색
+4. 시스템의 글꼴, 색상 등을 정의한 시스템 컬렉션을 검색
+5. InvalidOperation-Exception 예외 발생
 
 그래도 없을 경우에는 InvalidOperation-Exception을 발생시킨다. 
 
@@ -51,10 +62,12 @@ XAML에서 리소스 접근
 - Dynamic Resource: 매번 변경될 때마다 반복 적용될 수 있다
 
 적용
-- StaticResource를 적용할 수 있는 곳이면 어디든지 사용할 수 있으며 결과가 동일하다. 어떤 것을 사용해야할지 결정이 필요하다면 리소스를 사용하는 엘리먼트가 리소스가 수정되었다는 것을 알아야 하는지에 따라 결정된다. 
+- Dynamic Resource는 StaticResource를 적용할 수 있는 곳이면 어디든지 사용할 수 있으며 결과가 동일하다. 
+- 어떤 것을 사용해야할지 결정이 필요하다면 리소스를 사용하는 엘리먼트가 리소스가 수정되었다는 것을 알아야 하는지에 따라 결정된다. 
+   - 계속 수정되었다는 것을 알아야 한다면 Dynamic Resource를 사용한다
 
 로드&부하
-- StaticResource는 윈도우나 페이지가 로드될 때마다 항상 로드되지만 DynamicResource는 사용될 때만 로드된다. DynamicResource가 원하는 값을 찾는 과정에 추가적인 작업이 필요하기 때문에 StaticResource보다는 더 부하가 걸리지만 로딩 시간을 올릴 수 있다. 
+- StaticResource는 윈도우나 페이지가 로드될 때마다 항상 로드되지만 DynamicResource는 사용될 때만 로드된다. DynamicResource가 원하는 값을 찾는 과정에 추가적인 작업이 필요하기 때문에 StaticResource보다는 더 부하가 걸리지만 로딩(페이지 로딩) 시간을 올릴 수 있다(StaticResource는 페이지를 로드할 때마다 로드 되기 때문에).
 
 선참조 (forward reference)
 - StaticResource는 선참조가 지원되지 않는다. 따라서 리소스가 동일한 엘리먼트에 정의되어 있다면 Property Attribute 형식으로 StaticResource를 사용할 수 없다
