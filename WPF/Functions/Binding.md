@@ -53,3 +53,12 @@ btn2.SetBinding(Button.ContentProperty, binding);
 ## Property & Binding
 - 데이터 바인딩이 되는 타깃 프로퍼티는 의존프로퍼티여야 한다
 
+
+## Data Template
+정의
+- 읨의의 닷넷 객체가 렌더링 될 때 적용할 수 있는 UI의 한 부분
+- 많은 WPF 컨트롤들이 데이터 템플릿을 효과적으로 사용하기 위해서 DataTemplate 타입의 프로퍼티들을 가지고 있다
+- 예
+   - ContentControl: Content 객체의 렌더링을 조절할 수 있는 ContentTemplate
+   - ItemsControl: ItemTemplate
+
