@@ -120,7 +120,7 @@ using (obj as IDisposable)
 ### 2개의 using 문
 중첩된 using을 사용하는 경우에 대해서는 이러한 경우가 많이 없기 때문에 크게 문제되는 것은 없지만, 최적화된 코드는 아니기 때문에 try/finally 블록을 자체적으로 구현해주는 것도 좋은 방법이다. 
 
-예시 코드 - [Link](Source\Item46_DoubleUsing.md)
+예시 코드 - [Link](https://github.com/YoungChulShin/DayByDay/blob/master/BookMemo/%EA%B8%B0%EC%88%A0%EC%84%9C%EC%A0%81/%5BC%23%5D%20Effective%20C%23/Source/Item46_DoubleUsing.md)
 
 
 ### Dispose() 와 Close()
