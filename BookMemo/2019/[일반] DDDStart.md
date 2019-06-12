@@ -57,3 +57,46 @@ Presentation -> Application -> Domain -> Infrastrucure
 |Repository|도메인 모델의 영속성을 처리한다.<br>예를 들어, DBMS 테이블에서 엔티티 객체를 로딩하거나 저장하는 기능을 제공한다|
 |Domain Service|특정 엔티티에 속하지 않은 도메인 로직을 제공한다.<br>예를 들어, '할인 상품 계산'은 상품, 쿠폰, 회원 등급 등 다양한 조건을 이용해서 구현하게 되는데, 이렇게 도메인 로직이 여러 엔티티와 밸류를 필요로 할 경우 도메인 서비스에서 로직을 구현한다|
 
+### 애그리거트 (Aggregate)
+정의: 관련 객체를 하나로 묶은 군집
+
+애그리거트는 군집에 속한 객체들을 관리하는 루트 엔티티를 갖는다. 
+- 루트 엔티티는 애그리거트에 속해 있는 엔티티와 밸류 객체를 이용해서 애그리거트가 구현해야 할 기능을 제공한다
+- 애그리거트 루트를 통해서 간접적으로 애그리거트 내의 다른 엔티티나 밸류 객체에 접근하게 된다
+
+### 리포지터리 (Repository)
+리포지터리는 애그리거트 단위로 도메인 객체를 저장하고 조회하는 기능을 정의한다. 
+- 엔티티나 밸류: 요구사항에서 도출되는 도메인 모델
+- 리포지터리: 구현을 위한 도메인 모델
+   ```c#
+   // 주문 애그리거트를 위한 리포지터리
+   // 대상을 찾고, 저장하는 단위가 애그리거트 루트인 Order이다
+   public interface OrderRepository 
+   {
+      public Order findByNumber(OrderNumber number);
+      public void save(Order order);
+      public void delete(Order order);
+   }
+   ```
+
+구조
+- Application: `CancelOrderService`
+   - DI를 통해서 실제 리포지터리 구현 객체에 접근한다
+- Domain: `Order<Root>`, `OrderRepository<Interface>`
+- Infrastructure: `JpaOrderRepository`
+
+**응용서비스와 리포지터리 관계**
+- 응용서비스는 필요한 도메인 객체를 구하거나 저장할 때 리포지터리를 사용한다
+   - 리포지터리 구현 객체는 Interface를 통해서 DI 를 통해 사용
+- 응용 서비스는 트랜잭션을 관리하는데, 트랜잭션 처리는 리포지터리 구현 기술에 영향을 받는다
+
+리포지터리의 사용주체가 응용서비스이기 때문에 리포지터리는 응용 서비스가 필요로 하는 메서드를 제공한다
+- 애그리거트를 저장하는 메서드
+- 애그리거트 루트 식별자로 애그리거트를 조회하는 메서드
+   ```c#
+   public interface SomeRepository
+   {
+      void Save(Some some);
+      Some findById(SomeId id);
+   }
+   ```
