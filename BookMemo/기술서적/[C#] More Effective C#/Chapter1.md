@@ -85,3 +85,31 @@
 - public이나 protected로 데이터를 노출할 때는 항상 속성을 사용하라
 - Sequence나 Dictionary를 노출할 때는 인덱서를 사용하라
 - 모든 데이터 멤버는 예외 없이 private으로 선언하라.
+
+
+## 아이템2: 변경 가능한 데이터에는 암묵적 속성을 사용하는 것이 낫다
+### 암묵적 속성(implicit Property) 특징
+- 개발자의 생산성과 클래스의 가독성을 높인다
+- 명시적 속성과 동일한 접근자 지원
+- 향후 데이터 검증을 위해서 암묵적 속성을 명시적 속성으로 구현부를 추가해도 클래스의 바이너리 호환성이 유지된다
+    ```c#
+    // Original
+    public string FirstName {get; set;}
+
+    // Update
+    private string firstName;
+    public string FirstName
+    {
+        get => firstName;
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+                throw new ArgumentNullException("First name cannot be null or empty");
+
+            firstName = value;
+        }
+    }
+
+    ```
+- 데이터 검증 코드를 한 군데만 두면 된다 (=속성의 장점)
+- _Serializable 특성을 사용한 타입에는 사용할 수 없다_
