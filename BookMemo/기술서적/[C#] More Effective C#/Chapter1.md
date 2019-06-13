@@ -113,3 +113,119 @@
     ```
 - 데이터 검증 코드를 한 군데만 두면 된다 (=속성의 장점)
 - _Serializable 특성을 사용한 타입에는 사용할 수 없다_
+
+## 아이템3: 값 타입은 변경 불가능한 것이 낫다
+### 불변 타입 (Immutable Type)
+- 한번 생성된 후에는 그 값을 변경할 수 없는 타입
+- 변경 불가능한 타입으로 객체를 생성할 때 매개변수를 검증했다면, 그 객체의 상태는 항상 유효하다고 할 수 있다
+- 생성 후에 상태가 변경되지 않기 때문에 불필요한 오류 검증을 줄일 수 있다
+- 멀티스레드에 대해서도 안전하다
+   - 여러 스레드가 동시에 접근해도 내부 상태를 변경할 수 없으므로 항상 동일한 값에 접근한다
+
+### 모든 타입을 변경 불가능한 타입으로 만드는 것은 매우 어렵다
+이번 아이템은 `원자적으로 상태를 변경하는 타입` 과 `변경 불가능한 타입`에 적용할 수 있다
+
+`원자적으로 상태를 변경하는 타입`
+- 다수의 연관된 필드로 구성된 객체이지만, 하나의 필드를 수정하면 다른 필드도 함께 수정해야 하는 타입
+- 예) 주소: 이사를 했을 때 `시`, `도`, `군` 과 같은 정보를 바꿨는데, `우편번호`를 변경하지 않으면 이 객체는 잘못된 정보를 가지게 된다
+- 반대 예) 고객: `주소`, `이름`, `전화번호` 등으로 구성되어 있다고 할 때, 각각의 값들은 독립적이어서 `주소`를 바꾼다고 해서 `이름`이 같이 변경되어야하 하는 것은 아니다
+
+### 코드 예시
+변경 가능한 주소 코드
+```c#
+// 구현
+public struct Address 
+{
+    private string state;
+    private int zipCode;
+
+    public string City {get;set;}
+    public string State
+    {
+        get => state;
+        set
+        {
+            ValidateState(value);
+            state = value;
+        }
+    }
+    public int ZipCode
+    {
+        get => zipCode;
+        set 
+        {
+            ValidateState(value);
+            zipCode = value;
+        }
+    }
+}
+
+// 사용
+Address a1 = new Address();
+a1.City = "서울";
+a1.State = "송파구";
+a1.ZipCode = 7777777;
+// 변경 -> 이사를 갔다
+a1.City = "부산"; // 아직 Zip, State가 유효하지 않다
+a1.State = "북구"; // State가 유효하지 않다
+a1.ZipCode = 0000000; // 정상
+```
+
+발생할 수 있는 문제
+- 멀티스레드 환경에서 `City` 값을 변경 후에 `State`, `ZipCode`가 변경되기 전에 다른 스레드로 Context Switch가 되면 잘못된 값을 참조할 수 있다
+- 우편번호가 유효하지 않은 경우 예외를 던진다고 하면, 주소의 일부가 변경된 상태라 시스템이 불완전한 상태가 된다
+- 2경우 모두 동기화 코드를 사용해서 막을 수 있지만 추가 작업 및 코드량이 증가한다
+
+변경 불가능한 타입으로 변경
+```c#
+// 구현
+public struct Address
+{
+    public string City { get; }
+    public string State { get; }
+    public int Zip { get; }
+
+    public Address(string city, string state, string zip) : this()
+    {
+        City = city;
+        ValidateState(state);
+        State = state;
+        ValidateZip(zip);
+        Zip = zip;
+    }
+}
+
+// 사용
+Address a1 = new Address("서울", "송파구", 7777777);
+a1 = new Address("부산", "북구", 0000000);
+```
+
+- 기존 처럼 주소를 수정하다가 잘못된 임시 상태에 놓이는 일은 일어나지 않는다
+
+### 변경 불가능한 타입 내에 변경 가능한 참조 타입 필드가 있을 경우
+예: 배열 
+- 변경 불가능한 타입에 참조타입의 배열이 있으면 이를 통해서 내부 상태를 변경할 수 있다
+- `ImuutableArray` (System.Collections.Immutable) 로 변경해준다
+
+### 변경 불가능한 타입을 초기화 하는 방법
+1. 생성자를 정의
+   ```c#
+   Address a1 = new Address("서울", "송파구", 7777777);
+   ```
+2. 구조체를 초기화하는 Factory Method를 만드는 것
+   ```c#
+   Color color = Color.FromKnownColor(KnownColor.AliceBlue);
+   Color color2 = Color.FromName("Yellow");
+   ```
+3. 불변 타입의 인스턴스를 단번에 만들 수 없을 때는 변경 가능한 동반 클래스를 만들어 사용할 수 있다. 
+   ```charp
+   StringBuilder stringBuilder = new StringBuilder();
+   stringBuilder.Append("Hello");
+   stringBuilder.Append("World");
+   string helloWorld = stringBuilder.ToString();
+   ```
+
+### 정리
+- 변경 불가능한 타입은 작성하기가 쉽고 관리가 용이하다
+- 무작성 속성에 get, set 접근자를 만들지 말자
+- 데이터를 저장하기 위한 타입이라면 변경 불가능한 원자적 값 타입으로 구현하자
