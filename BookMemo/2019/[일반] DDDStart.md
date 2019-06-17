@@ -115,3 +115,58 @@ Presentation -> Application -> Domain -> Infrastrucure
    - 분리 경의: Product와 Review는 2개가 함께 생성되지 않고 함께 변경되지도 않는다. 게다가 Product의 변경 주체는 상품담당자라면 Review는 고객이다
 
 
+## 애그리거트 루트
+- 애그리거트는 여러 객체로 구성되기 때문에 한 객체만 상태가 정상이어서는 안된다. 
+- 애그리거트에 속한 모든 객체가 일관된 상태를 유지하려면 애그리거트 전체를 관리할 주체가 필요한데 이 책임을 지는 것이 바로 애그리거트의 루트 엔티티이다. 
+
+### 도메인 규칙과 일관성
+- 애그리거트 루트의 핵심 역할은 애거리거트의 일관성이 깨지지 않도록 하는 것이다. 이를 위해서 애그리거트 루트는 애그리거트가 제공해야 할 도메인 기능을 구현한다.<br>
+예를 들어, 주문 애그리거트는 배송지 변경, 상품 변경과 같은 기능을 제공하는데 애그리거트 루트인 Order가 이 기능을 구현한 메서드를 제공한다
+- **애그리거트 루트가 아닌 다른 객체가 애그리거트에 속한 객체를 직접 변경하면 안된다. 이는 애그리거트 루트가 강제하는 규칙을 적용할 수 없어 모델의 일관성을 깨는 원인이 된다**
+   ```c#
+   ShippingInfo si = order.GetShippingInfo();
+   so.setAddress(newAddress);    // 루트인 Order가 아니라 ShippingInfo에서 배송 정보를 변경하고 있다
+   ```
+- 불필요한 중복을 피하고, 애그리거트 루트를 통해서만 도메인 로직을 구현하게 만들려면 아래 2가지를 습관적으로 적용해야 한다
+   1. 단순히 필드를 변경하는 set 메서드를 public으로 만들지 않는다
+   2. value 타입은 불변으로 구현한다
+
+### 애그리거트 루트의 기능 구현
+- 애그리거트 루트는 애그리거트 내부의 다른 객체를 조합해서 기능을 완성한다
+   - 예: Order는 총 주문 금액을 구하기 위해서 OrderLine 목록을 사용한다
+   ```c#
+   public class Order 
+   {
+      private Money totalAmounts;
+      private List<OrderLine> orderLines;
+
+      private void calculateTotalAmounts()
+      {
+         int sum = orderLines.stream()
+                   .mapToInt(ol -> ol.getPrice() * ol.quantity()).sum();
+         this.totlaAmounts = new Money(sum);
+      }
+   }
+   ```
+
+### 트랜잭션 범위
+- 한 트랜잭션에서는 한 개의 애그리거트만 수정해야 한다. 이는 애그리거트에서 다른 애그리거트를 변경하지 않는다는 것을 뜻한다.<br>
+예를 들어 배송지 정보를 변경하면서 동시에 배송지 정보를 회원의 주소로 설정하는 기능이 있을 때, 주문 애그리거트는 회원 애그리거트의 정보를 변경하면 안된다.
+   ```c#
+   public class Order
+   {
+      private Orderer orderer;
+
+      public void shipTo(.....)
+      {
+         verifyNotYetShipped();
+         setShippingInfo(newShippingInfo);   // 배송지 정보 변경
+         if (xxxx)
+         {
+            orderer.getCustomer().changeAddress(...); // 다른 애그리거트의 상태를 변경하면 안됨!
+         }
+      }
+   }
+   ```
+- 이렇게 되면 애그리거트간 결합도가 높아지게 된다. 결합도가 높아지면 수정 비용이 증가하므로 피해야 한다. 
+- 만약 부득이하게 두개 이상의 애그리거트를 수정해야 한다면, 응용 서비스(Application)에서 두 애그리거트를 수정하도록 구현해야 한다. 
