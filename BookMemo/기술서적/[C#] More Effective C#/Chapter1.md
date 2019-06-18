@@ -291,3 +291,57 @@ iMe.DoWork();
 6. 다형성이 필요한 일은 없을 것으로 확신하는가?
 
 그런데도 쓰임새를 예상하기 어려운 경우라면 우선 참조 타입을 사용하자
+
+## 아이템5: 값 타입에서는 0이 유효한 상태가 되도록 설계하라
+### 요약
+- 값 타입에서는 모든 객체를 0으로 초기화 한다. 이를 막을 수는 없기 때문에 0이 기본값이 되도록 설계하는 것이 좋다.
+- 특별한 사례로 Flags를 사용하는 Enum에서는 0을 어떤 플래그도 설정하지 않았음을 뜻하는 값으로 정의해야 한다
+
+### Enum Type
+- 열겨형에서는 반드시 0을 유효한 값으로 선언해야 한다
+   ```c#
+   public enum Planet
+   {
+      Mercury = 1,
+      Venus = 2
+   }
+
+   // 사용
+   Planet planet = new Planet(); // 0 => 유효한 값이 아니다
+   Planet anotherPlanet = default(Planet); // 0 => 유효한 값이 아니다
+   ```
+- `Planet`이 다른 타입의 필드로 사용될 경우에도 문제가 발생할 수 있다. Struct는 기본 생성자를 가질 수 있기 때문에 Planet 변수가 `0`으로 초기화 될 수 있다.<br>
+이런 경우라면 0을 `초기화 되지 않았음`을 뜻하는 의미로 사용하고 나중에 원하는 값으로 수정을 유도하자.
+   ```c#
+   public struct OvservationData
+   {
+       Planet planet;
+       double magnitude;
+   }
+
+   public enum Planet
+   {
+      None = 0,
+      Mercury = 1,
+      Venus = 2
+   }
+   ```
+- Planet을 사용하는 구조체가 None에 대해서 문제가 되는 것으로 판단을 한다면, `OvservationData`를 기본 생성자가 없는 class로 바꾸는 것도 하나의 방법이다. 
+- 열겨형을 Flags로 사용할 때에는 None을 0으로 설정하는 것이 좋다
+   - 예: 비트 And 연산자를 할 때 0으로 인해서 문제가 될 수 있다
+
+### String
+- 문자열의 경우 초기 값은 null이다
+- Struct일 경우 강제로 초기화 할 수 있는 방법은 없지만, 속성을 통해서 빈 문자열로 반환하도록 할 수 있다
+   ```c#
+   public struct LogMessage
+   {
+       private int ErrLevel;
+       private int msg;
+       public string Message
+       {
+           get => msg ?? string.Empty;
+           set => msg = value;
+       }
+   }
+   ```
