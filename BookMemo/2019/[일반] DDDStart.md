@@ -218,3 +218,4 @@ Presentation -> Application -> Domain -> Infrastrucure
 - 속도
    - ID 참조를 사용할 경우에 서로 다른 애그리거트 데이터를 가져오려면 각각의 쿼리가 실행되어야 해서 속도 이슈가 있다
    - 이 경우 전용 조회 쿼리를 사용한다. 데이터 조회를 위한 별도의 DAO를 만든다
+   
