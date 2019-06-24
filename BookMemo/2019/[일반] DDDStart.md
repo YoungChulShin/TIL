@@ -218,4 +218,45 @@ Presentation -> Application -> Domain -> Infrastrucure
 - 속도
    - ID 참조를 사용할 경우에 서로 다른 애그리거트 데이터를 가져오려면 각각의 쿼리가 실행되어야 해서 속도 이슈가 있다
    - 이 경우 전용 조회 쿼리를 사용한다. 데이터 조회를 위한 별도의 DAO를 만든다
-   
+
+## 애그리거트를 팩토리로 사용하기
+중요한 도메인 로직 처리가 응용 서비스(=Application Layer)에 노출되었을 경우, 도메인에서 해당 기능을 구현하는 것을 검토해볼 필요가 있다
+
+### 예시
+```c#
+public class RegisterProductService
+{
+   public ProductId registerNewProduct(....) 
+   {
+      Store account = accountRepository.findStoreById(....);
+      // 상점이 생성 가능한지 테스트
+      // Product 생성
+      productRepository.save(product);
+   }
+}
+```
+- 위 코드는 Store가 Product를 생성할 수 있는지 여부를 판단하고 Product를 생성한다. 그런데 이는 논리적으로 하나의 도메인 기능인데 분리되어 있을 뿐 아니라, 이 기능을 응용 서비스에서 구현하고 있다. 
+- 애그리거트가 갖고 있는 데이터를 이용해서 다른 애그리거트를 생성해야 한다면 애그리거트 팩토리 메서드를 구현하는 것을 고려해봐야 한다. 
+- 위 예시에서 Product의 경우 Store의 식별자를 필요로 한다. 즉 Store의 데이터를 이용해서 Product를 생성한다. 그리고 Product를 생성할 수 있는 조건을 판단할 때 Store의 상태를 이용한다. 따라서 Store에 Product를 생성하는 팩토리 메서드를 추가하면 Product를 생성할 때 필요한 데이터의 일부를 직접 제공하면서 동시에 도메인로직을 구현할 수 있다. 
+
+```c#
+public class Store extends Member 
+{
+   public Product createProduct(....)
+   {
+      // 상점이 생성 가능한지 테스트
+      // Product 생성
+   }
+}
+
+public class RegisterProductService
+{
+   public ProductId registerNewProduct(....) 
+   {
+      Store account = accountRepository.findStoreById(....);
+      // 상점이 생성 가능한지 테스트
+      Product product = account.createProduct(...) // store를 이용해서 product 생성
+      productRepository.save(product);
+   }
+}
+```
