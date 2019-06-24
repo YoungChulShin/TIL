@@ -260,3 +260,11 @@ public class RegisterProductService
    }
 }
 ```
+
+# 4. 리포지터리와 모델 구현 (JPA 중심)
+### 모듈 위치
+- 인터페이스: Domain 영역
+- 인터페이스 구현: Infrastucture 영역
+
+### 리포지터리 기본 기능 구현
+두가지 기능 구현
