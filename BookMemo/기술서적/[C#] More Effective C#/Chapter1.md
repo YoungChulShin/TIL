@@ -345,3 +345,53 @@ iMe.DoWork();
        }
    }
    ```
+
+## 아이템 6: 속성을 데이터처럼 동작하게 만들라
+### 요약
+- 사용자들은 속성이 메서드와는 다르게 동작할 것이라 기대한다
+   - 속성이 메서드보다 빠르다
+   - 동작방식도 데이터 필드와 동일하다
+- 이러한 기대에 부합하도록 속성을 만들 수 없다면 차라리 해당 작업을 별도의 메서드로 제공하고 public 인터페이스를 수정하는 편이 낫다
+- 속성은 객체의 상태를 보여주는 원래의 용도로만 사용하자
+
+### 속성 작성 
+- 다른 변경사항이 없다면 `get` 접근자를 반복해서 호출할 때 늘 같은 값을 반환해야 한다
+   - 멀티스레드 환경에서는 다를 수 있다
+- `get` 접근자가 너무 많은 작업을 수행하지 않도록 하고, `set` 접근자는 유효성 검증 정도의 작업만 처리하도록 하는 것이 좋다
+   ```c#
+   for (int index = 0; index < myArray.Length; index++)
+   ```
+- `get` 접근자에서 간단한 작업만을 수행하고 있지만, 혹시 그 작업도 부담이 될 경우(=성능저하)는 캐싱을 적용할 수도 있다
+   ```c#
+   // As-Is
+   public int X { get; set; }
+   public int Y { get; set; }
+   public double Distance => Math.Sqrt(X * X + Y * Y);
+
+   // To-Be
+   private int xValue
+   public int X 
+   {
+        get => xValue; 
+        set 
+        {
+            xValue = value;
+            distance = default(double?);    // 캐싱 초기화
+        }
+   }
+   // Y 생략
+   private double? distance;
+   public double Distance
+   {
+       get
+       {
+           if (!distance.HasValue)
+           {
+               distance = Math.Sqrt(X * X + Y * Y);
+           }
+           return distance.Value;
+       }
+   }
+   ```
+- `get` 접근자가 값을 반환하는데 시간이 오래 걸린다면 public interface 를 다시 생각해봐야 한다
+- `Set` 접근자에서 
