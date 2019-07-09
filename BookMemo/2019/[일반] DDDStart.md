@@ -464,3 +464,41 @@ CQRS (Command Query Responsibility Segregation)
 - 상태를 변경하는 명령 기능과 내용을 조회하는 쿼리 기능을 위한 모델을 구분하는 패턴
 
 ## Bounded Context간 통합
+기존에 있는 시스템을 다른 시스템과 연동을 해야 한다면 통합작업이 필요하다. 
+
+예를 들어서 기존 카탈로그 시스템이 있는데, 추천 시스템이 추가되는 상황을 가정해보자
+- 사용자가 카탈로그 Bounded context에 추천 제품 목록을 요청하면 카탈로그 bounded context는 추천 bounded context로부터 추천 정보를 읽어와서 추천 제품 목록을 보여준다
+- 두 context의 도메인 모델은 다르기 때문에 도메인 모델간의 변경 작업이 필요하다. 
+- 여기서는 추천 시스템이 카탈로그 시스템으로 데이터를 보내주기 때문에 카탈로그 시스템에서는 추천 시스템의 데이터를 받아서 카탈로그 시스템으로 변환해주는 기능을 추가해야 한다
+
+   ```java
+   // RecSystemClient 는 Infra 영역에 위치한 클래스
+   // 외부 추천 시스템으로 부터 REST Api를 통해서 데이터를 가져온다
+   // Interface는 도메인 영역에 선언되어 있다
+   // 리턴 값은 카탈로그 시스템에서 사용하는 List<Product> 이다
+   public class RecSystemClient implements ProductRecommendationService {
+      @Override
+      public List<Product> getRecommendationsOf(ProductId id) {
+         // 구현 
+      }
+   }
+   ```
+
+## Bounded Context간 관계
+Open Host Service
+- 한쭉에서 API를 제공하고 다른 한쪽에서 호출하는 형식
+- 제공하는 쪽을 상류(upstream) 또는 공급자라고 하고, 제공 받는 쪽은 하류(downstream) 또는 고객이라 한다
+- 상류 컴포넌트는 하류 컴포넌트가 사용할 수 있는 통신 프로토콜을 정의하고 이를 공개한다
+- 하퓨 컴포넌트에서는 상류 서비스의 모델이 자신의 도메인 모델에 영향을 주지 않게 하기 위해서 완충 지대를 만드는데 이를 `Anticorruption Layer`라고 한다.<br>
+위 예에서 `RecSystemClient`가 그 역할을 한다
+- 두 Bounded Context가 모델을 공유하는 경우도 있는데, 이를 공유 커널(Shared Kernel)이라고 한다
+
+Separate Way
+- 서로 통합하지 않는 것
+- 수기로 통합하거나, 통합 시스템을 구축
+
+## 컨텍스트 맵
+Bounded Context 간의 관계를 정의
+
+# 10. 이벤트
+## 시스템간 강결합의 문제
