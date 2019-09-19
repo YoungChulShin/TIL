@@ -21,6 +21,7 @@
 - 해커와화가
 - 소프트웨어 장인
 - Computer Systems
+- 나는 LINE 개발자입니다
 
 ### 읽고 있는
 - More Effective C# (2019.06 ~)
