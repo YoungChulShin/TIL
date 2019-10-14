@@ -1,7 +1,4 @@
-##스터디 사이트
-- [Link](https://www.codecademy.com/en/courses/learn-html-css/lessons/common-elements/exercises/visible-content?action=lesson_resume)
-
-##기초 문법
+## 기초 문법
 - <!DOCTYPE html> : HTML임을 나타내는 문구
 - <html> </html> 로 구분을 해 주어야 한다
 - <, > : angle bracket
