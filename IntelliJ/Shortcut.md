@@ -9,3 +9,14 @@ control + shift + T
 ```
 control + alt + V
 ```
+
+## 코드
+### 줄 삭제
+```
+control + X
+```
+
+### 줄 복사
+```
+control + D
+```
