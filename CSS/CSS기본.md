@@ -88,3 +88,16 @@ Nested 구성요소에 적용
 ### !important
 !important flag
 - 모든 것보다 우선 적용된다
+
+
+# Visual Rules
+|Rules|설명|예시 값|
+|-|-|-|
+|font-family|폰트 값|Georgia|
+|font-size|폰트 크기|19px|
+|font-weight|폰트 굵기|bold|
+|text-align|텍스트 정렬|center, left, right|
+|color|보여주는 색|white|
+|background-color|배경 색|black|
+|opacity|투명도|0.5|
+|background-image|배경 이미지|url("경로표시")|
