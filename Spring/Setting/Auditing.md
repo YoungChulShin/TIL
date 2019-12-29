@@ -1,0 +1,27 @@
+## Auditing 설정 방법
+1. BaseEntity class를 만들고 설정한다
+   ~~~java
+   @Getter
+   @MappedSuperclass   // JPA Entity가 해당 클래스를 상속할 경우 필드들도 칼럼으로 인식하도록
+   @EntityListeners(AuditingEntityListener.class)  // Auditing 기능을 추가
+   public abstract class BaseTimeEntity {
+
+      @CreatedDate    // Entity가 생성되어 저장될 때 시간이 자동으로 저장
+      private LocalDateTime createdDate;
+
+      @LastModifiedDate   // 조회한 Entity의 값을 변경할 때 자동으로 저장
+      private LocalDateTime modifiedDate;
+   }
+   ~~~
+
+2. Entity class에서 Base class를 상속한다
+3. Apllication class에 Auditing을 활성화하는 annnotation을 추가한다
+   ~~~java
+   @EnableJpaAuditing
+   @SpringBootApplication  // SpringBoot의 자동설정, Bean 읽기와 생성을 모두 자동으로 설정
+   public class Application {
+      public static void main(String[] args) {
+         SpringApplication.run(Application.class, args); // 내장 WAS(Web Application Server)를 실행
+      }
+   }
+   ~~~
