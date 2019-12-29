@@ -19,6 +19,12 @@
    1. 결과가 OK인치 체크
    2. Update데이터의 값과 DB에서 읽어온 값이 일치하는지 검사
 
+### 페이지 로딩 테스트
+1. When
+   1. 페이지를 로드
+2. then
+   1. 필요한 문자열이 있는지 확인한다
+
 
 # 샘플 코드
 ## 테스트 코드 작성 샘플 코드 #1 (WebAPI)
@@ -120,4 +126,26 @@ public class HelloResponseDtoTest {
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
     }
+~~~
+
+## 테스트 코드 작성 샘플 코드 #4 (페이지 로드 테스트)
+~~~java
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class IndexControllerTest {
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Test
+    public void 메인페이지_로딩() {
+        // given
+
+        // when
+        String body = this.restTemplate.getForObject("/", String.class);
+
+        // then
+        assertThat(body).contains("스프링 부트로 시작하는 웹 서비스");
+    }
+}
 ~~~
