@@ -32,3 +32,8 @@ $ sudo ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 ~~~
 위 파일에서 'HOSTNAME' 값을 원하는 값으로 변경. 변경 이후에 서버 리부팅(sudo reboot) 필요.
 
+
+## Git 설치
+~~~
+# sudo yum install git
+~~~
