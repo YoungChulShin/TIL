@@ -1,4 +1,18 @@
-## ln (링크 파일 생성)
+## 파일
+### ls - 파일 목록 출력 (list directory contents)
+~~~
+$ ls 
+$ ls 옵션 파일경로|기타옵션
+~~~
+옵션
+- t: 시간 순
+- r; recursive
+
+기타 옵션
+- grep *.jar: jar 확장자의 파일을 검색
+- tail -n 1: 뒤에서 1개를 선택
+
+### ln (링크 파일 생성)
 커맨드: ln -[option] [원본 파일] [링크 파일]
 
 옵션
@@ -9,4 +23,3 @@
 ~~~
 $ ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 ~~~
-
