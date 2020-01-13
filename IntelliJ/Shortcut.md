@@ -31,3 +31,19 @@ control + X
 ```
 control + D
 ```
+
+## 창
+### 액션창
+```
+command + shift + A
+```
+
+## Git
+### Commit
+```
+command + k
+```
+### Push
+```
+command + shift + k
+```

@@ -1,0 +1,9 @@
+## Community Edition에서 연동하기
+1. Plugins 에서 'Database Navigator' 설치 및 IDE 재시작
+2. 'Actions'에서 'Database Browser' 실행
+3. Connection 설정
+   - Host에 엔드포인트 입력
+   - 접속 ID, Password 설정
+4. 'TestConnection' 으로 정상 연결 테스트
+5. Apply -> OK 클릭
+
