@@ -23,3 +23,10 @@ $ ls 옵션 파일경로|기타옵션
 ~~~
 $ ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 ~~~
+
+### rm 파일 삭제
+커맨드: rm + 옵션
+옵션
+- r: 폴더 삭제
+- f: 강제 삭제
+

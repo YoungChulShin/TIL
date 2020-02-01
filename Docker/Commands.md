@@ -1,8 +1,7 @@
-### 이미지 받기
+## 이미지 받기
 docker image pull
 
-
-### 이미지 빌드
+## 이미지 빌드
 `docker image build -t 이미지명[:태그명] Dockerfile의_경로`
 ```command
 docker image build -t example/echo:latest
