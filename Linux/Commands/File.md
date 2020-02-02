@@ -30,3 +30,16 @@ $ ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 - r: 폴더 삭제
 - f: 강제 삭제
 
+### 파일 내용 보기
+커맨드: cat + 파일명
+옵션
+- n: 라인 위치 보기
+- 파일명을 n개 적기: n개 파일의 내용을 출력
+
+기타
+- 
+사용
+~~~
+$ cat file
+$ cat file1 file2 
+~~~
