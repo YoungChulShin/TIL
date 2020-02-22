@@ -32,6 +32,21 @@ control + X
 control + D
 ```
 
+### 리턴 변수 만들기
+```
+command + shift + v
+```
+
+### 변수 합치기
+```
+command + shift + n
+```
+
+### 주석 처리하기
+```
+command + shift + /
+```
+
 ## 창
 ### 액션창
 ```
