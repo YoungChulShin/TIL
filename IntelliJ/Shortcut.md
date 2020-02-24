@@ -47,6 +47,16 @@ command + shift + n
 command + shift + /
 ```
 
+### 함수로 분리하기
+~~~
+command + shift + m
+~~~
+
+### 파라미터로 분리하기
+~~~
+command + shift + p
+~~~
+
 ## 창
 ### 액션창
 ```
