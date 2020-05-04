@@ -28,3 +28,8 @@
 - docker commmit -a "생성자 정보" -m "이미지 메시지" 'container name' 'image name'/'tag name'
 - 샘플 
    - docker commit -a 'ycshin' -m 'kafka study' testZookeeper03 zookeeper03/kafka_study
+
+이미지 -> 도커 허브
+- docker push 'image name':'version'
+- 예: docker push go1323/zookeeper03:0.1
+
