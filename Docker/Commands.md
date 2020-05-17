@@ -25,9 +25,9 @@
 - `docker image ls`
 
 컨테이너 -> 이미지 생성
-- docker commmit -a "생성자 정보" -m "이미지 메시지" 'container name' 'image name'/'tag name'
+- docker commmit -a "생성자 정보" -m "이미지 메시지" 'container name' 'image name':'tag name'
 - 샘플 
-   - docker commit -a 'ycshin' -m 'kafka study' testZookeeper03 zookeeper03/kafka_study
+   - docker commit -a 'ycshin' -m 'kafka study' testZookeeper03 zookeeper03:kafka_study
 
 이미지 -> 도커 허브
 - docker push 'image name':'version'
