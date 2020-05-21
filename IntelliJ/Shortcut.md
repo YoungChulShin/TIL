@@ -5,6 +5,11 @@ control + shift + T
 command + shift + T
 ```
 
+### 테스트 함수 실행
+~~~
+control + shift + r
+~~~
+
 ## 함수
 ### 리턴 값 자동 생성
 ```
@@ -60,6 +65,11 @@ command + shift + p
 ### 사용하지 않는 import 제거
 ~~~
 option + ctrl + o
+~~~
+
+### 로컬 함수 빼기
+~~~
+alt + command + v
 ~~~
 
 ## 창
