@@ -57,6 +57,11 @@ command + shift + m
 command + shift + p
 ~~~
 
+### 사용하지 않는 import 제거
+~~~
+option + ctrl + o
+~~~
+
 ## 창
 ### 액션창
 ```
