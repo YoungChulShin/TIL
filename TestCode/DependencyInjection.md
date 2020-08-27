@@ -47,10 +47,7 @@ MVC 프레임워크는 요청을 서비스하기 위해서 필요한 클래스�
             kernel.Bind<IDiscountHelper>().To<FlexibleDiscountHelper>().WhenInjectedInto<LinqValueCalculator>();
         }
         ```
-
-### 
-
-
+        
 ## 의존성 체인
 의존성이 필요한 개체들을 연속적으로 등록해서 의존성 체인을 만들어 준다.
 
