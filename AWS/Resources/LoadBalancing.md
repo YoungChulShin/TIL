@@ -13,10 +13,12 @@ ELB (Elastic Load Balancing)
 - 수신되는 트래픽을 여러 EC2 인스턴스에 자동배포
 - 종류
    - Application Load Balancer (ALB)
+      - 동일한 엔드포인트의 데이터를 URI 패스에 따라 분기하여 그룹별로 처리할 수 있다
       - HTTP/HTTPS 서비스
       - L7 Layer
       - SSL/TLS 암호화 및 프로토콜 사용
    - Network Load Balancer (NLB)
+      - 하나의 애플리케이션에 하나의 로드 밸랜서가 필요하다
       - TCP
       - L4 Layer
       - 짧은 지연 시간과 초당 수백만개의 요청 처리가 가능하다
