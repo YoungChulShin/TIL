@@ -13,5 +13,7 @@
 
 역할
 - Beanstalk를 생성하면 아래 2개의 역할이 생성되는데, 아래와 같다
-1. aws-elasticbeanstalk-ec2-role: 
+1. aws-elasticbeanstalk-ec2-role: 빈스톡에서 구동되는 EC2가 접근할 수 있는 권한
+   - 빈스톡에서 구동되는 프로그램이 서비스에 접근할 때 EC2 역할
 2. aws-elasticbeanstalk-service-role: 빈스톡 서비스가 접근할 수 있는 권한
+   - 로그나 관리적 측면에서 사용되는 서비스 역할
