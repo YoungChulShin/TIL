@@ -77,11 +77,39 @@
             }
         };
 
-        // 람다
+      // 람다
         IntConsumer printInt = (i) -> {
             System.out.println(i + baseNumber);
         };
 
         printInt.accept(10);
     }
+   ~~~
+
+
+메서드 레퍼런스
+- 정의
+   - 람다 함수가 사용되는 부분에 동일한 기능(= 같은 입력, 같은 출력)을 하는 다른 함수가 있으면 대신 사용할 수 있는 기능
+- 대상의 기준
+   - static 메서드
+   - 인스턴스 메서드
+   - 생성자
+- 샘플 코드
+   ~~~java
+   // 람다를 사용
+    UnaryOperator<String> hi = (s) -> "hi " + s;
+
+    // static 메서드 참고
+    UnaryOperator<String> hi2 = Greeting::hi;
+
+    // 인스턴스 메서드 참고
+    Greeting greeting = new Greeting();
+    UnaryOperator<String> hi3 = greeting::hello;
+
+    // 생성자 (인자가 없는 생성자를 참조)
+    Supplier<Greeting> greetingSupplier = Greeting::new;
+
+    // 생성자 (인자가 있는 생성자를 참조)
+    Function<String, Greeting> myGreeting = Greeting::new;
+    Greeting youngchulGreeting = myGreeting.apply("youngchul");
    ~~~
