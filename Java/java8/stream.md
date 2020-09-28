@@ -11,3 +11,19 @@
 - 중계형 오퍼레이터는 lazy로 처리된다
 - 병렬 처리
    - `parallelStream`를 사용
+
+샘플 코드
+- for 문과 스트림 사용 비교
+   ~~~java
+   List<String> names = new ArrayList<>();
+    names.add("keesun");
+    names.add("youngchul");
+    names.add("toby");
+    names.add("foo");
+
+    for (String name : names) {
+        System.out.println(name.toUpperCase());
+    }
+
+    names.parallelStream().map(String::toUpperCase).collect(Collectors.toList());
+   ~~~
