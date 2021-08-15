@@ -87,3 +87,9 @@ command + k
 ```
 command + shift + k
 ```
+
+## 선택
+Column 선택
+```
+command + shift + 8
+```
