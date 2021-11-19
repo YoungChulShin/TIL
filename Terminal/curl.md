@@ -28,3 +28,6 @@ curl -d '{"key1":"value1", "key2":"value2"}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8000/data
 ~~~
+
+## 비동기 호출
+curl 호출 뒤에 `&`를 붙이면 비동기로 호출할 수 있다.
