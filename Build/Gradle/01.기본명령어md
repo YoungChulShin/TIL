@@ -60,3 +60,8 @@ ext 변수
       commandLine '/usr/local/bin/docker-compose', '-f', 'docker/docker-compose.yml', 'up'
    }
    ```
+
+### task list 보기
+```
+./gradlew task --list
+```
