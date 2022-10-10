@@ -1,5 +1,4 @@
-
-
+# curl
 ## 기본 정보
 홈페이지: https://curl.se/
 
@@ -31,3 +30,13 @@ curl -d '{"key1":"value1", "key2":"value2"}' \
 
 ## 비동기 호출
 curl 호출 뒤에 `&`를 붙이면 비동기로 호출할 수 있다.
+
+## 결과를 이쁘게 출력하기
+1. `jq .`
+   ```
+   curl -X GET url | jq .
+   ```
+2. `json_pp`
+   ```
+   curl -X GET url | json_pp
+   ```
