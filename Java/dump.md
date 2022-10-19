@@ -8,3 +8,5 @@
    - `jattach <ps id> <option> <output path>`
    - 예:`jattach 1 dumpheap /dump/dump_log_1` 을 하면 'dump/dump_log_1' 로 메모리 덤프 파일이 생성
  
+## jmap 을 이용한 힙덤프 
+https://github.com/YoungChulShin/study_spring/tree/master/heap-dump-test
