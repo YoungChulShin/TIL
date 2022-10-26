@@ -10,3 +10,8 @@
  
 ## jmap 을 이용한 힙덤프 
 https://github.com/YoungChulShin/study_spring/tree/master/heap-dump-test
+
+## JVM에서 힙덤프 설정
+`-XX:+HeapDumpOnOutOfMemoryError` 옵션을 이용해서 OutOfMemory로 애플리케이션이 종료될 때, 힙덤프를 기록할 수 있다. 
+- `java_pod{pid}.hprof` 로 파일이 생성된다
+- 실행 명령어 예시: `java -XX:+HeapDumpOnOutOfMemoryError -Xmx1G -jar heapdump-0.0.1-SNAPSHOT.jar`
