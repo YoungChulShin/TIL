@@ -73,9 +73,18 @@ CMS(Concurrent Mark & Sweep) GC
    ![cms_collector](/Java/image/CMS_Collector.jpg)
 - `-XX:+UseConcMarkSweepGC` 옵션 지정
 
-G1(Garage First) GC
+[G1(Garage First) GC](https://docs.oracle.com/en/java/javase/11/gctuning/garbage-first-g1-garbage-collector1.html#GUID-ED3AB6D3-FD9B-4447-9EDF-983ED2F7A573)
+- 소개글
+   ```
+   The Garbage-First (G1) garbage collector is targeted for multiprocessor machines with a large amount of memory. It attempts to meet garbage collection pause-time goals with high probability while achieving high throughput with little need for configuration. G1 aims to provide the best balance between latency and throughput using current target applications and environments whose features include:
+   ```
 - 바둑판 모양의 구역으로 나뉘어저 있고, 각 구역이 Young, Old 구역의 역할을 한다. 다른 GC와 다르게 Young, Old 영역의 주소가 물리적으로 Linear 하지 않다
 - Old 영역의 GC는 CMS GC 방식과 비슷한데 여섯단계로 수행된다
+- `-XX:+UseG1GC` 옵션 지정
 
 ## 참고 자료
-Java Garbage Collection: https://d2.naver.com/helloworld/1329
+참고자료
+- Java Garbage Collection: https://d2.naver.com/helloworld/1329
+- 기계인간 블로그: https://johngrib.github.io/wiki/java-g1gc/
+- 오라클 GC 튜닝 가이드: https://docs.oracle.com/en/java/javase/11/gctuning/index.html
+
