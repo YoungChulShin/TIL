@@ -87,4 +87,23 @@ CMS(Concurrent Mark & Sweep) GC
 - Java Garbage Collection: https://d2.naver.com/helloworld/1329
 - 기계인간 블로그: https://johngrib.github.io/wiki/java-g1gc/
 - 오라클 GC 튜닝 가이드: https://docs.oracle.com/en/java/javase/11/gctuning/index.html
+- VM performance: https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html
 
+## 모니터링
+### jps
+java process를 확인할 때 사용. '`jps -h`'를 통해서 매뉴얼을 확인 가능하다. -v 옵션을 주면 JVM에 전달된 자바 옵션 목록을 볼 수 있다. 
+
+### jstat
+GC가 수행되는 정보를 확인하기 위한 명령어. 
+
+### verbosegc 옵션
+java를 실행할 때 `-verbosegc` 옵션을 주면 GC가 발생할 때 내용을 콘솔에서 확인할 수 있다. 
+
+옵션
+- `-XX:+PrintGCTimeStamps`: 시간 정보 출력
+
+## GC 튜닝
+기본으로 설정되어 있어야하는 옵션
+- `-Xms`, `-Xmx` : 힙 메모리 크기 지정
+- `-XX:NewRatio`: new 영역과 old 영역의 비율
+- `-server`: 서버 모드
