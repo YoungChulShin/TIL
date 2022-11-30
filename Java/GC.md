@@ -1,6 +1,6 @@
-## Java GC
+# Java GC
 
-### 힙 메모리 구조
+## 힙 메모리 구조
 구성
 - YoungGeneration
    - Eden
@@ -27,14 +27,14 @@ Stop The World
 Old Generation에서 Young Generation 참조
 - card Table에 Young Generation을 참조하면 정보를 기록하고, 이후에 이 Table을 확인해서 GC 대상인지 확인한다
 
-### Young Generation의 GC
+## Young Generation의 GC
 과정
 1. 객체가 생성되면 eden에 쌓인다
 2. GC가 일어나면 eden에서 사용되지 않는 객체는 제거되고, 남은 객체는 survivor 영역중 한곳으로 이동한다. 
 3. GC 과정에서 survivor 객체가 다 차게되면, 사용되지 않는 객체는 제거되고 나머지 survivor 영역으로 이동한다.
 4. 이 과정을 반복하다가 계속 살아남은 객체는 Old Generation 으로 이동한다. 
 
-### Old 영역의 GC
+## Old 영역의 GC
 종류
 - Serial GC
 - Parallel GC
@@ -44,5 +44,5 @@ Old Generation에서 Young Generation 참조
 
 Java9 버전부터는 G1 GC를 기본으로 사용한다.
 
-### 참고 자료
+## 참고 자료
 Java Garbage Collection: https://d2.naver.com/helloworld/1329

@@ -18,7 +18,13 @@ runtime data area 구조
    - pc register: 현재 실행중인 JVM 명령의 주소값 저장
    - native method stack: 다른 언어의 메서드 호출을 위해서 할당되는 영역
 - Heap
-- Method area: 클래스, 메서드, static 변수, 상수 정보 등이 저장되는 영역
+   - Instance
+   - Array
+- Method area
+   - Method n 
+      - runtime constant pool
+      - method code
+      - attribute and field value
 
 ## HotSpot VM
 개념
