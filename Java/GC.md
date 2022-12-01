@@ -94,13 +94,35 @@ CMS(Concurrent Mark & Sweep) GC
 java process를 확인할 때 사용. '`jps -h`'를 통해서 매뉴얼을 확인 가능하다. -v 옵션을 주면 JVM에 전달된 자바 옵션 목록을 볼 수 있다. 
 
 ### jstat
-GC가 수행되는 정보를 확인하기 위한 명령어. 
+GC가 수행되는 정보를 확인하기 위한 명령어.
+
+예시
+- `jstat -gcutil <<psid>> 1s`: 1초당 입력한 프로세스에 대한 gc 정보를 출력
+- `jstat -gccapacity <<psid>>`: 입력한 프로세스에 대한 gc capacity 정보 출력
+
+기타 옵션: `jstat -gcnew -t -h10 2624 1000 20 > test.log`
+- `-t`: 수행 시간 표시
+- `-h10`: 10줄에 한번씩 열의 설명을 표시
+- `2624`: psid
+- `1000`: 1초에 한번씩 출력
+- `20`: 20번 반복
+- `test.log`: test.log 파일에 결과를 저장한다
+
 
 ### verbosegc 옵션
 java를 실행할 때 `-verbosegc` 옵션을 주면 GC가 발생할 때 내용을 콘솔에서 확인할 수 있다. 
+```
+[6.675s][info][gc] GC(2450) To-space exhausted
+[6.675s][info][gc] GC(2450) Pause Young (Normal) (G1 Preventive Collection) 13M->14M(16M) 2.833ms
+[6.685s][info][gc] GC(2451) Pause Full (G1 Compaction Pause) 14M->13M(16M) 9.694ms
+[6.685s][info][gc] GC(2448) Concurrent Mark Cycle 14.887ms
+```
 
 옵션
 - `-XX:+PrintGCTimeStamps`: 시간 정보 출력
+
+### visualVM
+GUI 도구. visualGC 플러그인을 설치하면 GC 정보를 모니터링할 수 있다
 
 ## GC 튜닝
 기본으로 설정되어 있어야하는 옵션
