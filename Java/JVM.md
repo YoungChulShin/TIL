@@ -82,3 +82,18 @@ SIGKILL(-9)로 종료가 되면 위 과정을 따르지 않는다
 3. 해당 클래스를 나타내는 java.lang 패키지의 Class 클래스의 객체를 생성한다
 4. 링크 작업이 수행된다. static 필드를 생성 및 초기화하고 메서드 테이블을 할당한다
 5. 클래스의 초기화 진행. (부모 클래스가 있다면 먼저 초기화 진행)
+
+## JVM Options
+`-` 옵션
+- standard 옵션. 대부분의 jvm에서 동작
+- 예: -server
+
+`-X` 옵션
+- non-standard 옵션. 모든 jvm에서 동작할 것이라는 보장이 없다. 
+- 예: -Xmx
+
+`-XX` 옵션
+- developer option
+
+오라클 문서
+- https://openjdk.org/groups/hotspot/docs/RuntimeOverview.html
