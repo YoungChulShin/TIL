@@ -84,7 +84,8 @@ CMS(Concurrent Mark & Sweep) GC
 
 ## 참고 자료
 참고자료
-- Java Garbage Collection: https://d2.naver.com/helloworld/1329
+- Java GC: https://d2.naver.com/helloworld/1329
+- Java GC 모니터링: https://d2.naver.com/helloworld/6043
 - 기계인간 블로그: https://johngrib.github.io/wiki/java-g1gc/
 - 오라클 GC 튜닝 가이드: https://docs.oracle.com/en/java/javase/11/gctuning/index.html
 - VM performance: https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html
