@@ -1,5 +1,27 @@
 # Junit 커맨드 정보
 
+## 응답 처리
+### allSatisfy를 이용해서 특정 객체에 대한 반복 처리 개선
+변경 전
+```java
+Assertions.assertThat(history.getAgentDailyWorkHourInfo()).isEqualTo(workHourInfo);
+Assertions.assertThat(history.getWorkStatus()).isEqualTo(workHourInfo.getLastWorkStatus());
+Assertions.assertThat(history.getUpdatedAt()).isEqualTo(registerCommand.getUpdateTime());
+Assertions.assertThat(history.getUpdatedBy()).isEqualTo(registerCommand.getUpdateUser());
+```
+
+변경 후
+```java
+ Assertions.assertThat(workHourInfo.getHistories())
+    .hasSize(1)
+    .allSatisfy(v -> {
+        Assertions.assertThat(v.getAgentDailyWorkHourInfo()).isEqualTo(workHourInfo);
+        Assertions.assertThat(v.getWorkStatus()).isEqualTo(workHourInfo.getLastWorkStatus());
+        Assertions.assertThat(v.getUpdatedAt()).isEqualTo(registerCommand.getUpdateTime());
+        Assertions.assertThat(v.getUpdatedBy()).isEqualTo(registerCommand.getUpdateUser());
+    });
+```
+
 ## 에러 핸들링
 ### catchThrowable을 이용한 에러 catch 
 ```java
